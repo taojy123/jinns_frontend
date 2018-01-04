@@ -1,5 +1,5 @@
 FROM node:6.9
-MAINTAINER taojy
+MAINTAINER taojy(taojy123@163.com)
 
 RUN mkdir /workspace
 WORKDIR /workspace
