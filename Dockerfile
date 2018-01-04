@@ -13,6 +13,6 @@ ENV NODE_ENV production
 
 RUN npm run build
 
-CMD npm run start
+CMD bash -c "rm -rf /var/www/html/jinns_frontend; cp -r ./dist /var/www/html/jinns_frontend"
 
 
