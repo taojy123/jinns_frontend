@@ -72,7 +72,7 @@
     <!--地址 start-->
     <div class="address">
       <span class="icon addressIcon"></span>
-      <div class="addressText ellips">上海市长宁区金钟路999号C栋易贸大楼</div>
+      <div class="addressText ellips">上海市长宁区金钟路998号C栋易贸大楼</div>
       <span class="rightArrowText">地图</span>
       <span class="icon rightArrowSmallIcon"></span>
     </div>
