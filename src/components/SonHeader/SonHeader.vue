@@ -23,7 +23,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-	.SonHeader{height: 46px; background: #fff; position: fixed; left: 0; top:0; right: 0; z-index:999;border-bottom: 1px solid #f0f0f0;}
+	.SonHeader{height: 46px; background: #fff; position: fixed; left: 0; top:0; right: 0; z-index:499;border-bottom: 1px solid #f0f0f0;}
 	.centerHeadText{ text-align: center; height: 46px; width: 100%; color: #666; font-size: 18px; line-height: 46px;}
 	.leftHeadBut{width: 46px; height: 46px; position: absolute; left:0; top:0;}
 	.rightHeadBut{width: 46px; height: 46px; position: absolute; right:0; top:0;}

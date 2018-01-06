@@ -42,7 +42,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-	.header{height: 46px; background: rgba(255,255,255,0); position: fixed; left: 0; top:0; right: 0; z-index:999;}
+	.header{height: 46px; background: rgba(255,255,255,0); position: fixed; left: 0; top:0; right: 0; z-index:499;}
 	.centerHeadText{ text-align: center; height: 46px; width: 100%; color: #fff; font-size: 18px; line-height: 46px;}
   .header.active .centerHeadText{ color: #666;}
 	.leftHeadBut{width: 46px; height: 46px; position: absolute; left:0; top:0;}

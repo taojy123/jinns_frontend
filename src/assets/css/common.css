@@ -12,7 +12,7 @@
 .checkTime .weui-cell{padding:0 !important;}
 .checkTime .vux-calendar{margin-top:40%;}
 .checkTime .vux-calendar:before{ border-top:none !important; }
-.checkTime .vux-cell-value{display:block !important; text-align: center !important;margin-left:8px;}
+.checkTime .vux-cell-value{display:block !important; text-align: center !important;margin-left:8px; color: #484848 !important;}
 .vux-tap-active:active{ background: none !important; }
 .weui-cell__ft{ color: #484848 !important; font-size: 14px; }
 .paddingBottom62{padding-bottom:62px;}
@@ -26,7 +26,29 @@
 .vux-slider > .vux-indicator > a > .vux-icon-dot.active, .vux-slider .vux-indicator-right > a > .vux-icon-dot.active{
 	background-color: #f2a43a !important;
 }
+.checkTime .weui-cell_access .weui-cell__ft:after{ display: none !important; }
+.checkTime .weui-cell_access .weui-cell__ft{padding-right: 0px !important;}
 .inline-calendar td.is-today, .inline-calendar td.is-today.is-disabled{ color: #f8d850 !important; }
+.paddingtop{padding-top: 46px;}
+.txddItem .weui-cells{margin-top:0 !important;}
+.weui-cells:before{ border-top:1px solid #efefef !important; }
+.weui-cells:after{ border-bottom: 1px solid #efefef !important; }
+.weui-cell:before{ border-top:1px dashed #efefef !important; left:33px !important;}
+.roomNum .weui-cell{padding:14px 15px 14px 33px !important;}
+.roomNum .weui-cell_access.vux-cell-box:after{ display: none !important; }
+.vux-number-selector-plus{padding:3px !important;}
+.vux-number-selector-sub{padding:4px 5px 2px 4px !important;}
+.vux-number-input{width:34px !important;}
+.vux-number-selector.vux-number-disabled svg{fill:#dddddd !important;}
+.vux-number-selector svg{ fill:#999999 !important; }
+.weui-label{ font-size: 15px; color: #505050; }
+.weui-input{ font-size: 15px !important; color: #505050 !important;}
+.writeMes .weui-cell{padding:16px 15px 16px 33px !important;}
+.vux-popup-dialog{background: #fff !important;}
+
+
+
+
 
 @media screen and (max-width: 768px){
  
@@ -37,6 +59,7 @@
   
 }
 @media screen and (max-width: 320px){
+  .paddingtop{padding-top: 40px;}
   .rightArrowSmallIcon{right: 10px;}
   .rightArrowText{right: 22px;}
   .vux-slider > .vux-indicator > a > .vux-icon-dot, .vux-slider .vux-indicator-right > a > .vux-icon-dot{
