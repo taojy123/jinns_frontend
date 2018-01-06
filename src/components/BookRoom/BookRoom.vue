@@ -2,11 +2,11 @@
   <div class="bookRoom paddingBottom62">
     <Header></Header>
     <!--弹出酒店详情 start-->
-    <div v-transfer-dom>
+    <div class="popDialog" v-transfer-dom>
       <x-dialog v-model="showHideOnBlur" class="dialog-demo">
         <a class="icon popclose" v-on:click="showHideOnBlur=false"></a>
         <div class="popLunbo">
-          <swiper :list="popLuboList" style="width:100%;margin:0 auto;" :aspect-ratio="235/360" 
+          <swiper :list="popLuboList" style="width:100%;margin:0 auto;" :height="popSwiperHeight" 
           :show-dots="true" dots-position="center">
           </swiper>
         </div>
@@ -112,7 +112,7 @@
         <div class="hotelItemContent">
           <div class="hotelItemText">
             <div class="hotelName">豪华双床房</div>
-            <div class="hotelDetail ellips"><span>双份早餐</span><span>大/双床房</span></div>
+            <!-- <div class="hotelDetail ellips"><span>双份早餐</span><span>大/双床房</span></div> -->
           </div>
           <div class="hotelMes clearfix">
             <span>预付</span>
@@ -148,7 +148,7 @@
         <div class="hotelItemContent">
           <div class="hotelItemText">
             <div class="hotelName">豪华双床房2</div>
-            <div class="hotelDetail ellips"><span>双份早餐</span><span>大/双床房</span></div>
+            <!-- <div class="hotelDetail ellips"><span>双份早餐</span><span>大/双床房</span></div> -->
           </div>
           <div class="hotelMes clearfix">
             <span>预付</span>
@@ -178,7 +178,7 @@
         </div>
     </div>
     <!--加入购物车动画小球 end-->
-    <Footer :child-msg="counthotelnum"></Footer>
+    <Footer :child-msg="counthotelnum" :path-url="pathurlparme"></Footer>
   </div>
 </template>
 
@@ -211,12 +211,14 @@ export default {
       popLuboList: demoList,
       lunbo_index: 0,
       swiperImgCont: 0,
+      popSwiperHeight: "0px",
       checkIn: 'TODAY',
       checkOut: 'TODAY',
       title: '',
       showHideOnBlur: false,
       xxList: false,
       counthotelnum: 0,
+      bili: 0,
       balls: [ //小球 设为3个
           {
               show: false
@@ -234,13 +236,15 @@ export default {
               show: false
           },
       ],
-      dropBalls:[]
+      dropBalls:[],
+      pathurlparme:"/fillInOrder"
     }
   },
   mounted() {
     var that = this;
     that.swiperImgCont = imgList.length;
-    console.log(that.swiperImgCont);
+    that.bili = 235/360;
+    that.popSwiperHeight = $(".popDialog .weui-dialog").width()*that.bili + "px";
   },
   methods: {
     onIndexChange (index) {
@@ -373,7 +377,7 @@ color:#484848;}
   background-image: -webkit-linear-gradient(left, rgba(252, 252, 252, 1), rgba(0, 0, 0, 0)) !important;
   background-image: linear-gradient(to right, rgba(252, 252, 252, 1) 0, rgba(0, 0, 0, 0) 100%) !important;
 }
-.hotelName{ font-size: 15px; color: #444;}
+.hotelName{ font-size: 16px; color: #444;}
 .hotelDetail{ font-size: 12px; color: #666; height: 13px; border-left: 2px solid #dddddd; padding-left: 9px; margin-left:30px; width: 28.433%;}
 .hotelName,.hotelDetail{ display: inline-block; vertical-align: middle; }
 .hotelDetail span{ margin-right: 10px; }
@@ -446,14 +450,36 @@ color:#484848;}
   .checkInAndOut .sub01 a{ left:16px; }
   .checkInAndOut .sub02 a{ right:16px; }
   .address{padding:15px;}
-  .checkInAndOut,.checkInAndOut .sub01,.checkInAndOut .sub02{height: 60px;}
+  .checkInAndOut,.checkInAndOut .sub01,.checkInAndOut .sub02{height: 52px;}
   .checkState{margin-top: 10px; margin-bottom:5px;}
   .hotelItemContent{ height: 101px; }
   .hotelImg{width: 101px; height: 101px;}
+  .leftText h4{ font-size: 15px;}
+  .ltDiv .sub01,.ltDiv .sub02,.rightText{ font-size: 13px; }
   .leftText h4,.ltDiv .sub01{ margin-left: 0px; }
   .countDiv{ margin-right: 0px; }
   .leftIconArrow{ margin-left: 10px; }
-  .hotelItem{ padding-left: 10px; padding-right: 10px; }
-  .hotelItem{margin-top: 10px;}
+  .hotelItem{ padding-left: 10px; padding-right: 10px;margin-top: 10px; }
+  .countDiv{ width: 46px; height: 20px; line-height: 20px;}
+  .addressText{ font-size: 12px; }
+  .checkState{ font-size: 13px; }
+  .checkTime .vux-calendar{ margin-top: 30%; }
+  .checkInAndOut .sub03{ width: 46px; height: 18px; line-height: 18px; margin-left:-23px; margin-top:-9px; font-size: 12px;}
+  .hotelName{ font-size: 14px; }
+  .hotelMes{ margin-top: 10px; margin-bottom: 15px; }
+  .hotelMes span{width:43px; height: 13px; line-height: 14px; font-size: 10px; margin-right: 8px;}
+  .hotelItemText{ padding-top:14px; }
+  .hotelPayTotal{ font-size: 15px; }
+  .xlListItem{ height: 46px; line-height: 46px; }
+  .xlListItem .hyName{ font-size: 14px; }
+  .xlListItem .hyPay{ font-size: 12px; }
+  .hotelMiaoshu{ padding-top:12px; }
+  .hotelMiaoshu h4{ font-size: 15px; }
+  .hotelmsItem ul li span,.hotelmsItem ul li p{ font-size: 13px; }
+  .hotelmsItem ul li{margin-top:22px;}
+  .hotelmsItem{ margin-bottom: 10px; margin-top:6px; }
+  .hmsBut{ height: 32px; line-height: 32px; font-size: 15px; }
+  .hotelJian{ width: 15px; height: 15px; background-size:225px 225px; background-position: -16.5px -16.5px;}
 }
 </style>
+

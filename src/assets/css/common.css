@@ -7,7 +7,7 @@
 }
 .inline-calendar td.current > span.vux-calendar-each-date{background-color: #f8d850 !important;}
 .vux-popup-header-right{color: #f2a43a !important;}
-.vux-prev-icon, .vux-next-icon{ border:1px solid #f2a43a !important; border-top:none !important; border-right: none !important;}
+.vux-prev-icon, .vux-next-icon{ border:1px solid #f8d850 !important; border-top:none !important; border-right: none !important;}
 .vux-popup-dialog{bottom:50px !important;}
 .checkTime .weui-cell{padding:0 !important;}
 .checkTime .vux-calendar{margin-top:40%;}
@@ -19,18 +19,31 @@
 .ellips{display:block;white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
 .rightArrowText{ font-size: 12px; color: #999999; position: absolute; right: 28px; top:50%; margin-top: -5px; }
 .rightArrowSmallIcon{ position: absolute; width: 6px; height: 9px; background-position: 0 -22px; right: 16px; top:50%;margin-top:-4px; }
-.weui-dialog{width: 87% !important; max-width: 100% !important; border-radius: 2px !important; overflow:visible !important;}
+.weui-dialog{width: 87% !important; max-width: 100% !important; border-radius: 0px !important; overflow: visible !important;}
 .vux-slider > .vux-indicator > a > .vux-icon-dot, .vux-slider .vux-indicator-right > a > .vux-icon-dot{
 	width: 9px !important; height: 9px !important; border-radius: 100% !important; background-color: #fff !important;
 }
 .vux-slider > .vux-indicator > a > .vux-icon-dot.active, .vux-slider .vux-indicator-right > a > .vux-icon-dot.active{
 	background-color: #f2a43a !important;
 }
+.inline-calendar td.is-today, .inline-calendar td.is-today.is-disabled{ color: #f8d850 !important; }
 
-
-
-
+@media screen and (max-width: 768px){
+ 
+}
+@media screen and (max-width: 375px){
+}
+@media screen and (max-width: 360px){
+  
+}
 @media screen and (max-width: 320px){
   .rightArrowSmallIcon{right: 10px;}
   .rightArrowText{right: 22px;}
+  .vux-slider > .vux-indicator > a > .vux-icon-dot, .vux-slider .vux-indicator-right > a > .vux-icon-dot{
+  	width: 6px !important;
+    height: 6px !important;
+  }
+  .vux-slider > .vux-indicator, .vux-slider .vux-indicator-right{
+  	bottom:6px !important;
+  }
 }

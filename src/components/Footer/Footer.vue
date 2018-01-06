@@ -13,14 +13,14 @@
   		<span class="icon kefuIcon"></span>
   		<p>客服</p>
   	</a>
-    <a class="footerBut">立即预定</a>
+    <router-link class="footerBut" :to="{ path: pathUrl }">立即预定</router-link>
   </div>
 </template>
 
 <script>
 export default {
   name: 'Footer',
-  props: ['childMsg'],
+  props: ['childMsg','pathUrl'],
   data () {
     return {
       
@@ -42,4 +42,19 @@ export default {
 .footerA .count{display:block; border-radius: 100%; background-color: #f2a43a; color: #fff; 
 position: absolute; top:-5px; right: 10px; min-width: 18px; height: 18px; line-height: 18px; 
 text-align: center;}
+
+  @media screen and (max-width: 768px){
+ 
+  }
+  @media screen and (max-width: 375px){
+  }
+  @media screen and (max-width: 360px){
+    
+  }
+  @media screen and (max-width: 320px){
+    .footer{height: 39px; padding-left: 8px;}
+    .footerBut{width: 116px; height: 40px;font-size: 16px;line-height: 40px;}
+    .footerA{width: 45px; height: 28px;font-size:8px; margin-top:5px;}
+    .footerA .count{top:-3px; right: 4px;}
+  }
 </style>

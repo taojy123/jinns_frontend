@@ -50,4 +50,18 @@ export default {
 	.leftIconArrow{ width: 20px; height: 20px; background-position: 0px 0px; margin-left:13px; margin-top: 13px;}
   .header.active .leftIconArrow{background-position: -22px 0px;}
   .header.borderbottom{ border-bottom: 1px solid #f0f0f0; }
+  @media screen and (max-width: 768px){
+ 
+  }
+  @media screen and (max-width: 375px){
+  }
+  @media screen and (max-width: 360px){
+    
+  }
+  @media screen and (max-width: 320px){
+    .header{height: 40px;}
+    .centerHeadText{height: 40px; font-size: 16px; line-height: 40px;}
+    .leftHeadBut,.rightHeadBut{width: 40px; height: 40px;}
+    .leftIconArrow{margin-left:10px; margin-top: 10px;}
+  }
 </style>
