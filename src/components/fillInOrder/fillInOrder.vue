@@ -1,5 +1,5 @@
 <template>
-  <div class="fillInOrder paddingtop">
+  <div class="fillInOrder paddingtop paddingBottom62">
     <son-header :center-mes="centermes"></son-header>
     <!--住店离店 start-->
     <div class="checkInAndOut clearfix">
@@ -56,63 +56,137 @@
     <div class="txddItem choose">
       <div class="titleDiv"><span class="icon txddIcon"></span>请选择</div>
       <group>
-        <cell title="到店时间" :value="demo4" is-link @click.native="showPopup=true"></cell>
+        <cell title="到店时间" :value="checkInTime" is-link @click.native="showCheckTimePopup=true"></cell>
+        <cell title="优惠券" :value="Coupon" is-link @click.native="showCouponPopup=true"></cell>
       </group>
       <div v-transfer-dom>
-      <popup v-model="showPopup" class="checker-popup">
-        <div class="chooseTime">
-          <p class="popupTitle">请选择到店时间</p>
-          <checker
-          v-model="demo4"
-          default-item-class="demo4-item"
-          selected-item-class="demo4-item-selected"
-          disabled-item-class="demo4-item-disabled">
-            <checker-item value="14:00" @on-item-click="onItemClick"> 14:00</checker-item>
-            <checker-item value="15:00" @on-item-click="onItemClick"> 15:00</checker-item>
-            <checker-item value="16:00" @on-item-click="onItemClick"> 16:00</checker-item>
-            <checker-item value="17:00" @on-item-click="onItemClick"> 17:00 </checker-item>
-            <checker-item value="18:00" @on-item-click="onItemClick"> 18:00 </checker-item>
-          </checker>
+        <popup v-model="showCheckTimePopup" class="checker-popup">
+          <div class="chooseTime">
+            <p class="popupTitle">请选择到店时间</p>
+            <checker
+            v-model="checkInTime"
+            default-item-class="checkInTime-item"
+            selected-item-class="checkInTime-item-selected">
+              <checker-item value="14:00" @on-item-click="oncheckInTimeClick"> 14:00</checker-item>
+              <checker-item value="15:00" @on-item-click="oncheckInTimeClick"> 15:00</checker-item>
+              <checker-item value="16:00" @on-item-click="oncheckInTimeClick"> 16:00</checker-item>
+              <checker-item value="17:00" @on-item-click="oncheckInTimeClick"> 17:00 </checker-item>
+              <checker-item value="18:00" @on-item-click="oncheckInTimeClick"> 18:00 </checker-item>
+              <checker-item value="19:00" @on-item-click="oncheckInTimeClick"> 19:00</checker-item>
+              <checker-item value="20:00" @on-item-click="oncheckInTimeClick"> 20:00</checker-item>
+              <checker-item value="21:00" @on-item-click="oncheckInTimeClick"> 21:00</checker-item>
+              <checker-item value="22:00" @on-item-click="oncheckInTimeClick"> 22:00 </checker-item>
+              <checker-item value="23:00" @on-item-click="oncheckInTimeClick"> 23:00 </checker-item>
+              <checker-item value="24:00" @on-item-click="oncheckInTimeClick"> 24:00 </checker-item>
+            </checker>
+          </div>
+        </popup>
+      </div>
+      <div v-transfer-dom>
+        <popup v-model="showCouponPopup" class="checker-popup">
+          <div class="chooseTime">
+            <p class="popupTitle">请选择优惠券</p>
+            <checker
+            v-model="Coupon"
+            default-item-class="checkInTime-item"
+            selected-item-class="checkInTime-item-selected">
+              <checker-item value="5元" @on-item-click="onCouponClick"> 5元</checker-item>
+              <checker-item value="50元" @on-item-click="onCouponClick"> 50元</checker-item>
+              <checker-item value="100元" @on-item-click="onCouponClick"> 100元</checker-item>
+              <checker-item value="150元" @on-item-click="onCouponClick"> 150元 </checker-item>
+              <checker-item value="200元" @on-item-click="onCouponClick"> 200元 </checker-item>
+            </checker>
+          </div>
+        </popup>
+      </div>
+    </div>
+    <!--请选择 end-->
+
+    <!--温馨提示 start-->
+    <div class="reminder">
+      <p>温馨提示</p>
+      <div>
+        请于入住当日中午12:00后到酒店前台办理入住，如提前到店，视酒店空房情况安排。
+      </div>
+    </div>
+    <!--温馨提示 end-->
+
+    <!--明细弹出框 start-->
+    <div v-transfer-dom>
+      <popup v-model="detailed" position="left" width="100%">
+        <div class="position-horizontal-demo">
+          <p class="fjmxTitle">订单明细</p>
+          <div class="detailList">
+            <group>
+              <cell title="合计" value="¥899"></cell>
+              <cell-form-preview :list="detailList"></cell-form-preview>
+            </group>
+          </div>
+          <div class="detailTime">
+            01月07日入住，01月08日离店
+          </div>
+          <span class="icon popclose" @click="detailed = false"></span>
         </div>
       </popup>
     </div>
-    </div>
-    <!--请选择 end-->
+    <!--明细弹出框 end-->
+
     <div class="footer">
-      <router-link class="footerBut" :to="{ path: '/' }">提交订单</router-link>
+      <div class="sub01"><span class="span1">总价:</span><span>¥899</span></div>
+      <div class="sub02" @click="detailed = true">明细</div>
+      <router-link class="footerBut" :to="{ path: '/BookSucess' }">提交订单</router-link>
     </div>
   </div>
 </template>
 
 <script>
 import SonHeader from '../SonHeader/SonHeader'
-import { Calendar,Group, Cell,CellBox,XNumber,XInput,Checker,CheckerItem,TransferDom,Popup} from 'vux'
+import { Calendar,Group, Cell,CellBox,XNumber,XInput,Checker,CheckerItem,TransferDom,Popup,CellFormPreview} from 'vux'
 export default {
   name: 'fillInOrder',
   directives: {
     TransferDom
   },
-  components:{SonHeader,Calendar,Group,Cell,CellBox,XNumber,XInput,Checker,CheckerItem,Popup},
+  components:{SonHeader,Calendar,Group,Cell,CellBox,XNumber,XInput,Checker,CheckerItem,Popup,CellFormPreview},
   data () {
     return {
       centermes:'填写订单',
       checkIn: 'TODAY',
       checkOut: 'TODAY',
       title: '',
-      demo4: '请选择',
-      showPopup: false
+      checkInTime: '请选择',
+      Coupon: '请选择',
+      showCheckTimePopup: false,
+      showCouponPopup: false,
+      detailed: false,
+      detailList: [{
+        label: '豪华大床房',
+        value: '1晚 1间'
+      }, {
+        label: '豪华大床房',
+        value: '1晚 1间'
+      }, {
+        label: '豪华大床房',
+        value: '1晚 1间'
+      }]
     }
   },
   mounted() {
     
   },
   methods: {
-    onItemClick (value, disabled) {
+    oncheckInTimeClick (value, disabled) {
       console.log(value, disabled)
       if (!this.disabled) {
-        this.showPopup = false
+        this.showCheckTimePopup = false
       }
-    }
+    },
+    onCouponClick (value, disabled) {
+      console.log(value, disabled)
+      if (!this.disabled) {
+        this.showCouponPopup = false
+      }
+    },
   }
 }
 </script>
@@ -125,19 +199,52 @@ export default {
     color: #888;
   }
   .txddIcon{ width: 12px; height: 22px; background-position:-129px 0; position: absolute; top: 0; left: 11px; }
-  .fillInOrder{ background: #f4f4f4; }
+  .fillInOrder{ background: #f4f4f4;}
   .titleDiv{ position: relative; height: 42px; border-top:1px solid #efefef; background: #fff; font-size: 17px; color: #000; 
     line-height: 42px; padding-left: 33px; margin-top:12px;}
   .cellItem{ font-size: 15px; color: #505050; }
   .popupTitle{ font-size: 16px; color: #000; height: 46px; line-height: 46px; text-align: center; background: #fbf9fd; 
     border-bottom: 1px solid #efefef;}
     
-.chooseTime .vux-checker-box{ padding-top: 28px; }
-.chooseTime .vux-checker-item{ height: 27px; line-height: 27px; border:1px solid #999; width:65px; text-align: center;
-border-radius: 5px; color: #444444; margin-left: 16px; margin-bottom: 16px;}
+.chooseTime .vux-checker-box{ padding-top: 28px; padding-bottom: 28px;}
+.chooseTime .vux-checker-item{ height: 26px; line-height: 26px;  width:58px; text-align: center;
+border-radius: 5px; margin-left: 16px; margin-bottom: 16px;}
+.checkInTime-item{border:1px solid #999;color: #666666;}
+.checkInTime-item-selected {
+  border:1px solid #f8d850;
+  color: #f2a43a;
+}
+.popclose{width: 30px; height: 30px; background-position: -94.33333px 0; position: absolute; top:6px; right: 6px;}
+.fjmxTitle{ width: 100%; height: 45px; text-align: center; line-height: 45px; font-size: 14px; color: #444; }
+.detailTime{ font-size: 14px; color: #444; padding-left: 15px; margin-top:15px; }
+.reminder{padding-left: 16px; padding-right: 16px; font-size: 14px; color: #505050; margin-top:16px; margin-bottom: 30px; 
+  text-align:justify;}
+.reminder p{ margin-bottom: 8px; }
+.reminder div{ line-height: 1.4; }
   /*底部============= start*/
   .footer{ position: fixed; bottom: 0; left:0; right: 0; border-top: 1px solid #f0f0f0; height: 50px; background-color: #fff; z-index:999; padding-left: 10px;}
   .footerBut{ position: absolute; display:block;width: 151px; height: 51px; background-color: #f2a43a; font-size: 18px; text-align: center; line-height: 51px; top:-1px; right: 0px; color: #fff;}
+  .footer .sub01,.footer .sub02{ display:inline-block; height: 50px; line-height: 50px; }
+  .footer .sub01{ font-size: 20px; color: #000; margin-right: 30px;}
+  .footer .sub01 .span1{ font-size: 13px; color: #505050; margin-right: 10px; }
+  .footer .sub02{font-size: 13px; color: #505050; position: relative;}
+  .footer .sub02:after{
+    content: " ";
+    display: inline-block;
+    height: 5px;
+    width: 5px;
+    border-width: 1px 1px 0 0;
+    border-color: #C8C8CD;
+    border-style: solid;
+    -webkit-transform: matrix(0.71, 0.71, -0.71, 0.71, 0, 0);
+    transform: matrix(0.71, 0.71, -0.71, 0.71, 0, 0);
+    position: relative;
+    top: -2px;
+    position: absolute;
+    top: 50%;
+    margin-top: -3px;
+    right: -8px;
+  }
   /*底部============= end*/
   /*住店离店========== 开始*/
   .checkInAndOut{ background: #fff; }

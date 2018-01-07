@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import BookRoom from '@/components/BookRoom/BookRoom'
 import fillInOrder from '@/components/fillInOrder/fillInOrder'
+import BookSucess from '@/components/BookSucess/BookSucess'
 
 Vue.use(Router)
 
@@ -18,6 +19,12 @@ export default new Router({
       path: '/fillInOrder',
       name: 'fillInOrder',
       component: fillInOrder
+    },
+    {
+      //预订成功
+      path: '/BookSucess',
+      name: 'BookSucess',
+      component: BookSucess
     }
   ]
 })

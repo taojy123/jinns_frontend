@@ -42,9 +42,19 @@
 .vux-number-selector.vux-number-disabled svg{fill:#dddddd !important;}
 .vux-number-selector svg{ fill:#999999 !important; }
 .weui-label{ font-size: 15px; color: #505050; }
-.weui-input{ font-size: 15px !important; color: #505050 !important;}
-.writeMes .weui-cell{padding:16px 15px 16px 33px !important;}
+.weui-input{ font-size: 14px !important; color: #505050 !important;}
+.writeMes .weui-cell,.choose .weui-cell{padding:16px 15px 16px 33px !important;}
 .vux-popup-dialog{background: #fff !important;}
+.choose .vux-label{ font-size: 15px !important; color: #505050 !important; }
+.weui-cell_access .weui-cell__ft{
+  font-size: 12px !important; color: #c2c2c7 !important;
+}
+.weui-cell_access .weui-cell__ft:after{ border-width: 1px 1px 0 0 !important; border-color: #cccccc !important; width: 5px !important; height: 5px !important; 
+margin-top:-3px !important;}
+.detailList .weui-cell:before{left:18px !important;}
+.detailList .weui-form-preview__item{ padding:5px 0; }
+
+ 
 
 
 
