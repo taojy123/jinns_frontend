@@ -23,11 +23,11 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-	.SonHeader{height: 46px; background: #fff; position: fixed; left: 0; top:0; right: 0; z-index:499;border-bottom: 1px solid #f0f0f0;}
-	.centerHeadText{ text-align: center; height: 46px; width: 100%; color: #666; font-size: 18px; line-height: 46px;}
-	.leftHeadBut{width: 46px; height: 46px; position: absolute; left:0; top:0;}
-	.rightHeadBut{width: 46px; height: 46px; position: absolute; right:0; top:0;}
-	.leftIconArrow{ width: 20px; height: 20px; background-position: -22px 0px; margin-left:13px; margin-top: 13px;}
+	.SonHeader{height: 2.875rem; background: #fff; position: fixed; left: 0; top:0; right: 0; z-index:499;border-bottom: 1px solid #f0f0f0;}
+  .centerHeadText{ text-align: center; height: 2.875rem; width: 100%; color: #666; font-size: 18px; line-height: 2.875rem;}
+  .leftHeadBut{width: 2.875rem; height: 2.875rem; position: absolute; left:0; top:0;}
+  .rightHeadBut{width: 2.875rem; height: 2.875rem; position: absolute; right:0; top:0;}
+  .leftIconArrow{ width: 1.25rem; height: 1.25rem; background-position: -22px 0px; margin-left:0.8125rem; margin-top: 0.8125rem;}
   @media screen and (max-width: 768px){
  
   }
@@ -38,9 +38,6 @@ export default {
     
   }
   @media screen and (max-width: 320px){
-    .header{height: 40px;}
-    .centerHeadText{height: 40px; font-size: 16px; line-height: 40px;}
-    .leftHeadBut,.rightHeadBut{width: 40px; height: 40px;}
-    .leftIconArrow{margin-left:10px; margin-top: 10px;}
+    
   }
 </style>
