@@ -49,14 +49,14 @@
     <div class="jinnslunbo">
       <div class="lunbotop"></div>
       <swiper :list="lunboList" style="width:100%;margin:0 auto;" :aspect-ratio="235/414" :show-dots="false"
-      v-model="lunbo_index" @on-index-change="onIndexChange">
+      v-model="lunbo_index" @on-index-change="onIndexChange" v-if="lunboList">
       </swiper>
       <div class="buttomDiv clearfix">
         <div class="leftText">
-          <h4>上海某某酒店名字全名</h4>
+          <h4>{{shop.name}}</h4>
           <div class="ltDiv clearfix">
-            <div class="sub01"><span>4.8</span>分</div>
-            <div class="sub02"><span>2988</span>条评论</div>
+            <div class="sub01"><span>{{shop.score}}</span>分</div>
+            <div class="sub02"><span>{{shop.reviews_count}}</span>条评论</div>
           </div>
         </div>
         <div class="rightText">
@@ -72,7 +72,7 @@
     <!--地址 start-->
     <div class="address">
       <span class="icon addressIcon"></span>
-      <div class="addressText ellips">上海市长宁区金钟路999号C栋易贸大楼</div>
+      <div class="addressText ellips">{{shop.address}}</div>
       <span class="rightArrowText">地图</span>
       <span class="icon rightArrowSmallIcon"></span>
     </div>
@@ -153,16 +153,13 @@ import Footer from '../Footer/Footer'
 import { Swiper, Calendar, XDialog, TransferDomDirective as TransferDom } from 'vux'
 import axios from 'axios'
 
+
 const imgList = [
-  require('../../assets/imgs/lunbo.jpg'),
-  require('../../assets/imgs/lunbo.jpg'),
-  require('../../assets/imgs/lunbo.jpg'),
-  require('../../assets/imgs/lunbo.jpg'),
   require('../../assets/imgs/lunbo.jpg'),
   require('../../assets/imgs/lunbo.jpg')
 ]
 const demoList = imgList.map((one, index) => ({
-  url: 'javascript:',
+  // url: 'javascript:',
   img: one
 }))
 
@@ -206,6 +203,7 @@ export default {
       ],
       dropBalls:[],
       pathurlparme:"/fillInOrder",
+      shop: {},
       rooms: []
     }
   },
@@ -218,6 +216,16 @@ export default {
     axios.get('http://jinns.top/api/book/rooms/').then(res => {
       const rooms = res.data
       this.rooms = rooms
+    })
+
+    axios.get('http://jinns.top/api/shop/shops/self/').then(res => {
+      const shop = res.data
+      this.shop = shop
+      this.lunboList = []
+      shop.pics.forEach(pic => {
+        this.lunboList.push({img: pic})
+      })
+      this.swiperImgCont = this.lunboList.length
     })
   },
   methods: {
@@ -291,6 +299,10 @@ export default {
     },
     showDetail(room) {
       this.detailRoom = room
+      this.popLuboList = []
+      room.pics.forEach(pic => {
+        this.popLuboList.push({img: pic})
+      })
       this.showHideOnBlur = true
     }
   },
