@@ -4,39 +4,39 @@
     <!--弹出酒店详情 start-->
     <div class="popDialog" v-transfer-dom>
       <x-dialog v-model="showHideOnBlur" class="dialog-demo">
-        <a class="icon popclose" v-on:click="showHideOnBlur=false"></a>
+        <a class="icon popclose" @click="showHideOnBlur=false"></a>
         <div class="popLunbo">
-          <swiper :list="popLuboList" style="width:100%;margin:0 auto;" :height="popSwiperHeight" 
+          <swiper :list="popLuboList" style="width:100%;margin:0 auto;" :height="popSwiperHeight"
           :show-dots="true" dots-position="center">
           </swiper>
         </div>
         <div class="hotelMiaoshu">
-          <h4>房型名称房型名称房型名称</h4>
+          <h4>{{detailRoom.name}}</h4>
           <div class="hotelmsItem">
             <ul class="clearfix">
               <li class="clearfix">
                 <span>面积</span>
-                <p>26平方米</p>
+                <p>{{detailRoom.area}}平方米</p>
               </li>
               <li class="clearfix">
                 <span>床型</span>
-                <p>大床房</p>
+                <p>{{detailRoom.bed_type}}</p>
               </li>
               <li class="clearfix">
                 <span>窗户</span>
-                <p>有窗</p>
+                <p>{{detailRoom.window}}</p>
               </li>
               <li class="clearfix">
                 <span>床宽</span>
-                <p>1.8米</p>
+                <p>{{detailRoom.bed_width}}米</p>
               </li>
               <li class="clearfix">
                 <span>入住人数</span>
-                <p>2人</p>
+                <p>{{detailRoom.capacity}}人</p>
               </li>
               <li class="clearfix">
                 <span>所在楼层</span>
-                <p>1-2层</p>
+                <p>{{detailRoom.floor}}</p>
               </li>
             </ul>
           </div>
@@ -100,7 +100,7 @@
         </a>
       </div>
       <div class="sub03">
-        共3晚
+        共1晚
       </div>
       <p class="shuxian01"></p>
       <p class="shuxian02"></p>
@@ -108,62 +108,27 @@
     <!--住店离店 end-->
     <!--酒店列表 start-->
     <div class="hotelList">
-      <div class="hotelItem">
+      <div class="hotelItem" v-for="room in rooms" :key="room.id">
         <div class="hotelItemContent">
           <div class="hotelItemText">
-            <div class="hotelName">豪华双床房</div>
-            <!-- <div class="hotelDetail ellips"><span>双份早餐</span><span>大/双床房</span></div> -->
+            <div class="hotelName">{{room.name}}</div>
           </div>
           <div class="hotelMes clearfix">
-            <span>预付</span>
-            <span>不可退</span>
+            <span>{{room.bed_type}}</span>
+            <span>{{room.window}}</span>
           </div>
           <div class="hotelPay">
-            <a class="hotelPayTotal" v-on:click="showXllist">¥256<span class="icon xxjtIcon"></span>
+            <a class="hotelPayTotal" @click="showXllist">¥{{room.price}}</span>
             </a>
             <a class="icon hotelJian" @click="additem"></a>
           </div>
-          <div class="hotelImg" v-on:click="showHideOnBlur=true">
+          <div class="hotelImg" @click="showDetail(room)">
             <div class="hotelImgJianbian"></div>
-            <img src="../../assets/imgs/hotelImg.jpg">
-          </div>
-        </div>
-        <!--下拉列表-->
-        <div class="xlList" v-show="xxList">
-          <div class="xlListItem clearfix">
-            <div class="hyName">金卡</div>
-            <div class="hyPay">¥288</div>
-          </div>
-          <div class="xlListItem clearfix">
-            <div class="hyName">银卡</div>
-            <div class="hyPay">¥388</div>
-          </div>
-          <div class="xlListItem clearfix">
-            <div class="hyName">微会员</div>
-            <div class="hyPay">¥269</div>
+            <img :src="room.pic">
           </div>
         </div>
       </div>
-      <div class="hotelItem">
-        <div class="hotelItemContent">
-          <div class="hotelItemText">
-            <div class="hotelName">豪华双床房2</div>
-            <!-- <div class="hotelDetail ellips"><span>双份早餐</span><span>大/双床房</span></div> -->
-          </div>
-          <div class="hotelMes clearfix">
-            <span>预付</span>
-            <span>不可退</span>
-          </div>
-          <div class="hotelPay">
-            <a class="hotelPayTotal">¥256<span class="icon xxjtIcon"></span></a>
-            <a class="icon hotelJian" @click="additem"></a>
-          </div>
-          <div class="hotelImg">
-            <div class="hotelImgJianbian"></div>
-            <img src="../../assets/imgs/hotelImg.jpg">
-          </div>
-        </div>
-      </div>
+
     </div>
     <!--酒店列表 end-->
 
@@ -186,6 +151,7 @@
 import Header from '../Header/Header'
 import Footer from '../Footer/Footer'
 import { Swiper, Calendar, XDialog, TransferDomDirective as TransferDom } from 'vux'
+import axios from 'axios'
 
 const imgList = [
   require('../../assets/imgs/lunbo.jpg'),
@@ -199,6 +165,7 @@ const demoList = imgList.map((one, index) => ({
   url: 'javascript:',
   img: one
 }))
+
 export default {
   name: 'BookRoom',
   directives: {
@@ -216,6 +183,7 @@ export default {
       checkOut: 'TODAY',
       title: '',
       showHideOnBlur: false,
+      detailRoom: {},
       xxList: false,
       counthotelnum: 0,
       bili: 0,
@@ -226,7 +194,7 @@ export default {
           {
               show: false
           },
-           {
+          {
               show: false
           },
           {
@@ -237,7 +205,8 @@ export default {
           },
       ],
       dropBalls:[],
-      pathurlparme:"/fillInOrder"
+      pathurlparme:"/fillInOrder",
+      rooms: []
     }
   },
   mounted() {
@@ -245,6 +214,11 @@ export default {
     that.swiperImgCont = imgList.length;
     that.bili = 235/360;
     that.popSwiperHeight = $(".popDialog .weui-dialog").width()*that.bili + "px";
+
+    axios.get('http://jinns.top/api/book/rooms/').then(res => {
+      const rooms = res.data
+      this.rooms = rooms
+    })
   },
   methods: {
     onIndexChange (index) {
@@ -268,53 +242,57 @@ export default {
     },
     additem(event){
       var that = this;
-        that.drop(event.target);
-        that.counthotelnum ++;
-      },
-      drop(el){ //抛物
-          for(let i=0;i<this.balls.length;i++){
-              let ball= this.balls[i];
-              if(!ball.show){
-                  ball.show = true;
-                  ball.el=el;
-                  this.dropBalls.push(ball);
-                  return;
-              }
-          }
-      },
-      beforeDrop(el) {/* 购物车小球动画实现 */
-          let count = this.balls.length;
-          while (count--) {
-              let ball = this.balls[count];
-              if (ball.show) {
-                  let rect = ball.el.getBoundingClientRect(); //元素相对于视口的位置
-                  let x = rect.left - 32;
-                  let y = -(window.innerHeight - rect.top - 22);  //获取y
-                  el.style.display = '';
-                  el.style.webkitTransform = 'translateY('+y+'px)';  //translateY
-                  el.style.transform = 'translateY('+y+'px)';
-                  let inner = el.getElementsByClassName('inner-hook')[0];
-                  inner.style.webkitTransform = 'translateX('+x+'px)';
-                  inner.style.transform = 'translateX('+x+'px)';
-              }
-          }
-      },
-      dropping(el, done) { /*重置小球数量  样式重置*/
-          let rf = el.offsetHeight;
-          el.style.webkitTransform = 'translate3d(0,0,0)';
-          el.style.transform = 'translate3d(0,0,0)';
-          let inner = el.getElementsByClassName('inner-hook')[0];
-          inner.style.webkitTransform = 'translate3d(0,0,0)';
-          inner.style.transform = 'translate3d(0,0,0)';
-          el.addEventListener('transitionend', done);
-      },
-      afterDrop(el) { /*初始化小球*/
-          let ball = this.dropBalls.shift();
-          if (ball) {
-          ball.show=false;
-          el.style.display = 'none';
+      that.drop(event.target);
+      that.counthotelnum ++;
+    },
+    drop(el){ //抛物
+        for(let i=0;i<this.balls.length;i++){
+            let ball= this.balls[i];
+            if(!ball.show){
+                ball.show = true;
+                ball.el=el;
+                this.dropBalls.push(ball);
+                return;
+            }
+        }
+    },
+    beforeDrop(el) {/* 购物车小球动画实现 */
+        let count = this.balls.length;
+        while (count--) {
+            let ball = this.balls[count];
+            if (ball.show) {
+                let rect = ball.el.getBoundingClientRect(); //元素相对于视口的位置
+                let x = rect.left - 32;
+                let y = -(window.innerHeight - rect.top - 22);  //获取y
+                el.style.display = '';
+                el.style.webkitTransform = 'translateY('+y+'px)';  //translateY
+                el.style.transform = 'translateY('+y+'px)';
+                let inner = el.getElementsByClassName('inner-hook')[0];
+                inner.style.webkitTransform = 'translateX('+x+'px)';
+                inner.style.transform = 'translateX('+x+'px)';
+            }
+        }
+    },
+    dropping(el, done) { /*重置小球数量  样式重置*/
+        let rf = el.offsetHeight;
+        el.style.webkitTransform = 'translate3d(0,0,0)';
+        el.style.transform = 'translate3d(0,0,0)';
+        let inner = el.getElementsByClassName('inner-hook')[0];
+        inner.style.webkitTransform = 'translate3d(0,0,0)';
+        inner.style.transform = 'translate3d(0,0,0)';
+        el.addEventListener('transitionend', done);
+    },
+    afterDrop(el) { /*初始化小球*/
+        let ball = this.dropBalls.shift();
+        if (ball) {
+        ball.show=false;
+        el.style.display = 'none';
       }
-  }
+    },
+    showDetail(room) {
+      this.detailRoom = room
+      this.showHideOnBlur = true
+    }
   },
 }
 </script>
@@ -342,19 +320,19 @@ export default {
 }
 .address{ border-bottom: 1px solid #f0f0f0; position: relative; padding:20px;}
 .addressText{ font-size: 14px; color:#484848; margin-left:18px;margin-right:35px;}
-.addressIcon{ width: 17px; height: 17px; background-position:0 -37px; position: absolute; top:50%; 
+.addressIcon{ width: 17px; height: 17px; background-position:0 -37px; position: absolute; top:50%;
   margin-top: -8.5px; left:16px;}
 .checkInAndOut{ width: 100%; height: 74px; border-bottom: 1px solid #f0f0f0; position: relative;}
 .checkInAndOut .sub01{float:left; width: 50%; height: 74px; position: relative;}
 .checkInAndOut .sub02{ float: right; width: 50%; height: 74px; position: relative; }
-.checkInAndOut .sub01 a,.checkInAndOut .sub02 a{ display: block; width: 95px; height: 100%; text-align: center; 
+.checkInAndOut .sub01 a,.checkInAndOut .sub02 a{ display: block; width: 95px; height: 100%; text-align: center;
   position: absolute;}
 .checkInAndOut .sub01 a{ left:20%; }
 .checkInAndOut .sub02 a{ right:20%; }
-.shuxian01,.shuxian02{ width: 1px; height: 12px; background: #f0f0f0; position: absolute; left: 50%; 
+.shuxian01,.shuxian02{ width: 1px; height: 12px; background: #f0f0f0; position: absolute; left: 50%;
   margin-left: -0.5px;}
 .checkInAndOut .sub03{ position:absolute; width: 60px; height: 24px; border:1px solid #f0f0f0; border-radius: 60px;
-text-align: center; top:50%; left: 50%; margin-top: -12px; margin-left: -30px; line-height: 25px; font-size: 13px; 
+text-align: center; top:50%; left: 50%; margin-top: -12px; margin-left: -30px; line-height: 25px; font-size: 13px;
 color:#484848;}
 .shuxian01{ top:0; }
 .shuxian02{ bottom: 0; }
@@ -382,7 +360,7 @@ color:#484848;}
 .hotelName,.hotelDetail{ display: inline-block; vertical-align: middle; }
 .hotelDetail span{ margin-right: 10px; }
 .hotelMes{margin-top:15px; margin-bottom: 24px;}
-.hotelMes span{ display:block; width: 56px; height: 17px; border:1px solid #DEDEDE; font-size: 12px; 
+.hotelMes span{ display:block; width: 56px; height: 17px; border:1px solid #DEDEDE; font-size: 12px;
   color: #ababab; text-align: center; line-height: 18px; float: left; margin-right: 10px;}
 .hotelItemText{padding-top:18px;}
 .hotelPayTotal{ font-size: 17px; color: #000; vertical-align: middle;}

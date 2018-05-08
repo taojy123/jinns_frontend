@@ -24,7 +24,7 @@
         </a>
       </div>
       <div class="sub03">
-        共3晚
+        共1晚
       </div>
       <p class="shuxian01"></p>
       <p class="shuxian02"></p>
@@ -172,7 +172,7 @@ export default {
     }
   },
   mounted() {
-    
+
   },
   methods: {
     oncheckInTimeClick (value, disabled) {
@@ -200,12 +200,12 @@ export default {
   }
   .txddIcon{ width: 12px; height: 22px; background-position:-129px 0; position: absolute; top: 0; left: 11px; }
   .fillInOrder{ background: #f4f4f4;}
-  .titleDiv{ position: relative; height: 42px; border-top:1px solid #efefef; background: #fff; font-size: 17px; color: #000; 
+  .titleDiv{ position: relative; height: 42px; border-top:1px solid #efefef; background: #fff; font-size: 17px; color: #000;
     line-height: 42px; padding-left: 33px; margin-top:12px;}
   .cellItem{ font-size: 15px; color: #505050; }
-  .popupTitle{ font-size: 16px; color: #000; height: 46px; line-height: 46px; text-align: center; background: #fbf9fd; 
+  .popupTitle{ font-size: 16px; color: #000; height: 46px; line-height: 46px; text-align: center; background: #fbf9fd;
     border-bottom: 1px solid #efefef;}
-    
+
 .chooseTime .vux-checker-box{ padding-top: 28px; padding-bottom: 28px;}
 .chooseTime .vux-checker-item{ height: 26px; line-height: 26px;  width:58px; text-align: center;
 border-radius: 5px; margin-left: 16px; margin-bottom: 16px;}
@@ -217,7 +217,7 @@ border-radius: 5px; margin-left: 16px; margin-bottom: 16px;}
 .popclose{width: 30px; height: 30px; background-position: -94.33333px 0; position: absolute; top:6px; right: 6px;}
 .fjmxTitle{ width: 100%; height: 45px; text-align: center; line-height: 45px; font-size: 14px; color: #444; }
 .detailTime{ font-size: 14px; color: #444; padding-left: 15px; margin-top:15px; }
-.reminder{padding-left: 16px; padding-right: 16px; font-size: 14px; color: #505050; margin-top:16px; margin-bottom: 30px; 
+.reminder{padding-left: 16px; padding-right: 16px; font-size: 14px; color: #505050; margin-top:16px; margin-bottom: 30px;
   text-align:justify;}
 .reminder p{ margin-bottom: 8px; }
 .reminder div{ line-height: 1.4; }
@@ -251,14 +251,14 @@ border-radius: 5px; margin-left: 16px; margin-bottom: 16px;}
   .checkInAndOut{ width: 100%; height: 74px; border-bottom: 1px solid #f0f0f0; position: relative;}
   .checkInAndOut .sub01{float:left; width: 50%; height: 74px; position: relative;}
   .checkInAndOut .sub02{ float: right; width: 50%; height: 74px; position: relative; }
-  .checkInAndOut .sub01 a,.checkInAndOut .sub02 a{ display: block; width: 95px; height: 100%; text-align: center; 
+  .checkInAndOut .sub01 a,.checkInAndOut .sub02 a{ display: block; width: 95px; height: 100%; text-align: center;
     position: absolute;}
   .checkInAndOut .sub01 a{ left:20%; }
   .checkInAndOut .sub02 a{ right:20%; }
-  .shuxian01,.shuxian02{ width: 1px; height: 12px; background: #f0f0f0; position: absolute; left: 50%; 
+  .shuxian01,.shuxian02{ width: 1px; height: 12px; background: #f0f0f0; position: absolute; left: 50%;
     margin-left: -0.5px;}
   .checkInAndOut .sub03{ position:absolute; width: 60px; height: 24px; border:1px solid #f0f0f0; border-radius: 60px;
-  text-align: center; top:50%; left: 50%; margin-top: -12px; margin-left: -30px; line-height: 25px; font-size: 13px; 
+  text-align: center; top:50%; left: 50%; margin-top: -12px; margin-left: -30px; line-height: 25px; font-size: 13px;
   color:#484848;}
   .shuxian01{ top:0; }
   .shuxian02{ bottom: 0; }
@@ -269,12 +269,12 @@ border-radius: 5px; margin-left: 16px; margin-bottom: 16px;}
   .checkState .rightArrowSmallIcon{ right: -14px;}
   /*住店离店========== 结束*/
   @media screen and (max-width: 768px){
- 
+
   }
   @media screen and (max-width: 375px){
   }
   @media screen and (max-width: 360px){
-    
+
   }
   @media screen and (max-width: 320px){
     .footer{height: 39px; padding-left: 8px;}
