@@ -12,16 +12,16 @@ export default {
   name: 'Header',
   data () {
     return {
-      
+
     }
   },
   mounted() {
-    
+
     // 滑动滚动条改变头部状态
     $(window).scroll(function(){
       var scrollHeight = $(window).scrollTop();
       $('.header').css('background','rgba(255,255,255,' + (scrollHeight -50)/150 + ')');
-      console.log(scrollHeight);
+      // console.log(scrollHeight);
 
       if(scrollHeight>=100){
         $('.header').addClass('active');
@@ -35,7 +35,7 @@ export default {
         $('.header').removeClass('borderbottom');
       }
     });
-    
+
   }
 }
 </script>
@@ -51,12 +51,12 @@ export default {
   .header.active .leftIconArrow{background-position: -22px 0px;}
   .header.borderbottom{ border-bottom: 1px solid #f0f0f0; }
   @media screen and (max-width: 768px){
- 
+
   }
   @media screen and (max-width: 375px){
   }
   @media screen and (max-width: 360px){
-    
+
   }
   @media screen and (max-width: 320px){
     .header{height: 40px;}

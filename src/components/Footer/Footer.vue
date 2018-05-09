@@ -5,11 +5,11 @@
       <p>房量</p>
       <span class="count">{{childMsg}}</span>
     </a>
-  	<a class="footerA br">
+  	<a class="footerA br" href="tel:02155556666">
   		<span class="icon phoneIcon"></span>
   		<p>电话</p>
   	</a>
-  	<a class="footerA">
+  	<a class="footerA" href="tel:02155556666">
   		<span class="icon kefuIcon"></span>
   		<p>客服</p>
   	</a>
@@ -23,7 +23,7 @@ export default {
   props: ['childMsg','pathUrl'],
   data () {
     return {
-      
+
     }
   }
 }
@@ -39,17 +39,17 @@ export default {
 .phoneIcon{ background-position: -42px 0; }
 .kefuIcon{background-position: -22px -45px;}
 .fangliangIcon{background-position: -68px 0;}
-.footerA .count{display:block; border-radius: 100%; background-color: #f2a43a; color: #fff; 
-position: absolute; top:-5px; right: 10px; min-width: 18px; height: 18px; line-height: 18px; 
+.footerA .count{display:block; border-radius: 100%; background-color: #f2a43a; color: #fff;
+position: absolute; top:-5px; right: 10px; min-width: 18px; height: 18px; line-height: 18px;
 text-align: center;}
 
   @media screen and (max-width: 768px){
- 
+
   }
   @media screen and (max-width: 375px){
   }
   @media screen and (max-width: 360px){
-    
+
   }
   @media screen and (max-width: 320px){
     .footer{height: 39px; padding-left: 8px;}

@@ -71,10 +71,12 @@
     <!--头部图片轮播 end-->
     <!--地址 start-->
     <div class="address">
-      <span class="icon addressIcon"></span>
-      <div class="addressText ellips">{{shop.address}}</div>
-      <span class="rightArrowText">地图</span>
-      <span class="icon rightArrowSmallIcon"></span>
+      <a href="https://map.baidu.com/mobile/webapp/index/index/vt=map" target="_blank">
+        <span class="icon addressIcon"></span>
+        <div class="addressText ellips">{{shop.address}}</div>
+        <span class="rightArrowText">地图</span>
+        <span class="icon rightArrowSmallIcon"></span>
+      </a>
     </div>
     <!--地址 end -->
     <!--住店离店 start-->
@@ -100,7 +102,7 @@
         </a>
       </div>
       <div class="sub03">
-        共1晚
+        共{{checkDays}}晚
       </div>
       <p class="shuxian01"></p>
       <p class="shuxian02"></p>
@@ -118,7 +120,7 @@
             <span>{{room.window}}</span>
           </div>
           <div class="hotelPay">
-            <a class="hotelPayTotal" @click="showXllist">¥{{room.price}}</span>
+            <a class="hotelPayTotal" @click="showXllist"><span>¥{{room.price}}</span>
             </a>
             <a class="icon hotelJian" @click="additem"></a>
           </div>
@@ -152,6 +154,7 @@ import Header from '../Header/Header'
 import Footer from '../Footer/Footer'
 import { Swiper, Calendar, XDialog, TransferDomDirective as TransferDom } from 'vux'
 import axios from 'axios'
+import moment from 'moment'
 
 
 const imgList = [
@@ -177,7 +180,7 @@ export default {
       swiperImgCont: 0,
       popSwiperHeight: "0px",
       checkIn: 'TODAY',
-      checkOut: 'TODAY',
+      checkOut: moment().add(1, 'days').format('YYYY-MM-DD'),
       title: '',
       showHideOnBlur: false,
       detailRoom: {},
@@ -207,18 +210,31 @@ export default {
       rooms: []
     }
   },
+  computed: {
+    checkDays () {
+      const checkIn = moment(this.checkIn, 'YYYY-MM-DD')
+      const checkOut = moment(this.checkOut, 'YYYY-MM-DD')
+      const microseconds = checkOut - checkIn
+      let days = microseconds / 1000 / 3600 / 24
+      if(days <= 0){
+        this.checkOut = checkIn.add(1, 'days').format('YYYY-MM-DD')
+        days = 1
+      }
+      return days
+    }
+  },
   mounted() {
     var that = this;
     that.swiperImgCont = imgList.length;
     that.bili = 235/360;
     that.popSwiperHeight = $(".popDialog .weui-dialog").width()*that.bili + "px";
 
-    axios.get('http://jinns.top/api/book/rooms/').then(res => {
+    axios.get('https://jinns.top/api/book/rooms/').then(res => {
       const rooms = res.data
       this.rooms = rooms
     })
 
-    axios.get('http://jinns.top/api/shop/shops/self/').then(res => {
+    axios.get('https://jinns.top/api/shop/shops/self/').then(res => {
       const shop = res.data
       this.shop = shop
       this.lunboList = []
