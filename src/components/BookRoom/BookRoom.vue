@@ -47,7 +47,7 @@
     <!--弹出酒店详情 end-->
     <!--头部图片轮播 start-->
     <div class="jinnslunbo">
-      <div class="lunbotop"></div>
+      <!--<div class="lunbotop"></div>-->
       <swiper :list="lunboList" style="width:100%;margin:0 auto;" :aspect-ratio="235/414" :show-dots="false"
       v-model="lunbo_index" @on-index-change="onIndexChange" v-if="lunboList">
       </swiper>
@@ -122,7 +122,7 @@
           <div class="hotelPay">
             <a class="hotelPayTotal" @click="showXllist"><span>¥{{room.price}}</span>
             </a>
-            <a class="icon hotelJian" @click="additem"></a>
+            <a class="icon hotelJian" :data-room-id="room.id" @click="additem"></a>
           </div>
           <div class="hotelImg" @click="showDetail(room)">
             <div class="hotelImgJianbian"></div>
@@ -205,9 +205,9 @@ export default {
           },
       ],
       dropBalls:[],
-      pathurlparme:"/fillInOrder",
       shop: {},
-      rooms: []
+      rooms: [],
+      selectedRooms: {}
     }
   },
   computed: {
@@ -221,6 +221,18 @@ export default {
         days = 1
       }
       return days
+    },
+    pathurlparme () {
+      if(!this.counthotelnum){
+        return
+      }
+      let url = '/fillInOrder?rooms='
+      for(let roomId in this.selectedRooms){
+        let count = this.selectedRooms[roomId]
+        url += `${roomId}.${count},`
+      }
+      url += `&checkIn=${this.checkIn}&checkOut=${this.checkOut}`
+      return url
     }
   },
   mounted() {
@@ -229,12 +241,14 @@ export default {
     that.bili = 235/360;
     that.popSwiperHeight = $(".popDialog .weui-dialog").width()*that.bili + "px";
 
-    axios.get('https://jinns.top/api/book/rooms/').then(res => {
+    let url = 'https://jinns.top/api/book/rooms/'
+    axios.get(url).then(res => {
       const rooms = res.data
       this.rooms = rooms
     })
 
-    axios.get('https://jinns.top/api/shop/shops/self/').then(res => {
+    url = 'https://jinns.top/api/shop/shops/self/'
+    axios.get(url).then(res => {
       const shop = res.data
       this.shop = shop
       this.lunboList = []
@@ -255,11 +269,6 @@ export default {
     onChange (val) {
       console.log('on change', val)
     },
-    doShowToast () {
-      this.$vux.toast.show({
-        text: 'toast'
-      })
-    },
     showXllist (){
       var that = this;
       that.xxList = !that.xxList;
@@ -268,6 +277,10 @@ export default {
       var that = this;
       that.drop(event.target);
       that.counthotelnum ++;
+      var roomId = event.target.getAttribute('data-room-id')
+      that.selectedRooms[roomId] = that.selectedRooms[roomId] || 0
+      that.selectedRooms[roomId] ++
+      console.log(this.selectedRooms)
     },
     drop(el){ //抛物
         for(let i=0;i<this.balls.length;i++){

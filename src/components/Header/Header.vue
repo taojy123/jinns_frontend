@@ -1,6 +1,6 @@
 <template>
   <div class="header">
-    <div class="leftHeadBut"><a class="icon leftIconArrow"></a></div>
+    <div class="leftHeadBut" @click="$root.$router.back()"><a class="icon leftIconArrow"></a></div>
     <div class="centerHeadText">客房预订</div>
     <div class="rightHeadBut"></div>
   </div>
@@ -35,6 +35,9 @@ export default {
         $('.header').removeClass('borderbottom');
       }
     });
+
+  },
+  methods: {
 
   }
 }

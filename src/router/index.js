@@ -23,7 +23,7 @@ export default new Router({
     },
     {
       //预订成功
-      path: '/BookSucess',
+      path: '/BookSucess/:orderNumber',
       name: 'BookSucess',
       component: BookSucess
     },

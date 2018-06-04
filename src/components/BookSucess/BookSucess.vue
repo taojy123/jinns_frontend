@@ -7,32 +7,32 @@
           <p class="fjmxTitle" @click="detailed = true">订单明细</p>
           <div class="detailList">
             <group>
-              <cell title="合计" value="¥408"></cell>
+              <cell title="合计" :value="'¥'+order.price"></cell>
               <cell-form-preview :list="detailList"></cell-form-preview>
             </group>
           </div>
           <div class="detailTime">
-            01月07日入住，01月08日离店
+            {{ order.starts_at }}入住，{{ order.ends_at }}离店
           </div>
           <span class="icon popclose" @click="detailed = false"></span>
         </div>
       </popup>
     </div>
     <!--明细弹出框 end-->
-    <son-header :center-mes="centermes"></son-header>
+    <son-header center-mes="预订成功"></son-header>
     <div class="orderStateImg"><img src="../../assets/imgs/orderSucess.png"></div>
     <div class="orderStateText">
       <div class="osTit">预定成功</div>
-      <div class="payTime">支付剩余时间：12小时16分钟58秒</div>
-      <div class="totalPay">房费总价：<span>¥408</span> <a @click="detailed = true">订单详情</a></div>
+      <div class="payTime">支付剩余时间：{{ remainTime }}</div>
+      <div class="totalPay">房费总价：<span>¥{{ order.price }}</span> <a @click="detailed = true">订单详情</a></div>
     </div>
-    <div class="orderbut">
+    <div class="orderbut" v-if="remainTime != '已超时'">
       <router-link :to="{ path: '/orderPay' }">
         <x-button :gradients="['#f2a43a', '#f8d850']">预付房费</x-button>
       </router-link>
     </div>
     <div class="bzDiv">
-      备注：请填写备注信息，我是备注，请填写备注信息，我是备注，请填写备注信息，我是备注，请填写备注信息，我是备注，请填写备注信息，我是备注，请填写备注信息，我是备注，请填写备注信息
+      备注：{{ order.remark || '无' }}
     </div>
   </div>
 </template>
@@ -40,6 +40,11 @@
 <script>
 import SonHeader from '../SonHeader/SonHeader'
 import { XButton,Popup,Group,Cell,CellFormPreview,TransferDom} from 'vux'
+import axios from 'axios'
+import moment from 'moment'
+import _ from 'lodash'
+
+
 export default {
   name: 'BookSucess',
   directives: {
@@ -48,25 +53,49 @@ export default {
   components:{SonHeader,XButton,Popup,Group,Cell,CellFormPreview},
   data () {
     return {
-      centermes:'预订成功',
       detailed: false,
-      detailList: [{
-        label: '豪华大床房',
-        value: '1晚 1间'
-      }, {
-        label: '豪华大床房',
-        value: '1晚 1间'
-      }, {
-        label: '豪华大床房',
-        value: '1晚 1间'
-      }]
+      detailList: [],
+      orderNumber: this.$root.$route.params.orderNumber,
+      order: {},
+      remainTime: ''
     }
   },
   mounted() {
-    
+    this.refreshRemainTime()
+    const url = `http://jinns.top/api/customer/orders/${this.orderNumber}/`
+    axios.get(url).then(res => {
+      console.log(res.data)
+      this.order = res.data
+      this.detailList = []
+      _.forEach(this.order.order_rooms, item => {
+        this.detailList.push({
+          label: item.room.name,
+          value: `${this.order.days}晚 ${item.quantity}间`
+        })
+      })
+    })
   },
   methods: {
-    
+    refreshRemainTime (){
+      const createdAt = moment(this.order.created_at)
+      const now = moment()
+      const microseconds = now - createdAt
+      const seconds = microseconds / 1000
+      const remainSeconds = 15 * 60 - seconds
+      if(remainSeconds <0 ){
+        this.remainTime = '已超时'
+        return
+      }
+      let result = ''
+      if(remainSeconds > 60){
+        result += `${parseInt(remainSeconds/60)}分钟`
+      }
+      result += `${parseInt(remainSeconds%60)}秒`
+      this.remainTime = result
+      setTimeout(this.refreshRemainTime, 1000)
+    }
+  },
+  computed: {
   }
 }
 </script>
@@ -86,20 +115,20 @@ export default {
   .popclose{width: 30px; height: 30px; background-position: -94.33333px 0; position: absolute; top:6px; right: 6px;}
   .fjmxTitle{ width: 100%; height: 45px; text-align: center; line-height: 45px; font-size: 14px; color: #444; }
   .detailTime{ font-size: 14px; color: #444; padding-left: 15px; margin-top:15px; }
-  .reminder{padding-left: 16px; padding-right: 16px; font-size: 14px; color: #505050; margin-top:16px; margin-bottom: 30px; 
+  .reminder{padding-left: 16px; padding-right: 16px; font-size: 14px; color: #505050; margin-top:16px; margin-bottom: 30px;
     text-align:justify;}
   .reminder p{ margin-bottom: 8px; }
   .reminder div{ line-height: 1.4; }
   @media screen and (max-width: 768px){
- 
+
   }
   @media screen and (max-width: 375px){
   }
   @media screen and (max-width: 360px){
-    
+
   }
   @media screen and (max-width: 320px){
-    
+
   }
 </style>
 

@@ -1,6 +1,6 @@
 <template>
   <div class="SonHeader">
-    <div class="leftHeadBut"><a class="icon leftIconArrow"></a></div>
+    <div class="leftHeadBut" @click="$root.$router.back()"><a class="icon leftIconArrow"></a></div>
     <div class="centerHeadText">{{centerMes}}</div>
     <div class="rightHeadBut"></div>
   </div>
@@ -12,11 +12,11 @@ export default {
   props: ['centerMes'],
   data () {
     return {
-      
+
     }
   },
   mounted() {
-    
+
   }
 }
 </script>
@@ -29,15 +29,15 @@ export default {
   .rightHeadBut{width: 2.875rem; height: 2.875rem; position: absolute; right:0; top:0;}
   .leftIconArrow{ width: 1.25rem; height: 1.25rem; background-position: -22px 0px; margin-left:0.8125rem; margin-top: 0.8125rem;}
   @media screen and (max-width: 768px){
- 
+
   }
   @media screen and (max-width: 375px){
 
   }
   @media screen and (max-width: 360px){
-    
+
   }
   @media screen and (max-width: 320px){
-    
+
   }
 </style>

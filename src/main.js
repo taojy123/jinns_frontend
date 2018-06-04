@@ -3,6 +3,8 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import  { ToastPlugin } from 'vux'
+Vue.use(ToastPlugin)
 
 Vue.config.productionTip = false
 

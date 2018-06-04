@@ -1,6 +1,6 @@
 <template>
   <div class="fillInOrder paddingtop paddingBottom62">
-    <son-header :center-mes="centermes"></son-header>
+    <son-header center-mes="填写订单"></son-header>
     <!--住店离店 start-->
     <div class="checkInAndOut clearfix">
       <div class="sub01">
@@ -24,30 +24,29 @@
         </a>
       </div>
       <div class="sub03">
-        共1晚
+        共{{checkDays}}晚
       </div>
       <p class="shuxian01"></p>
       <p class="shuxian02"></p>
     </div>
     <!--住店离店 end-->
 
-    <!--房型房间数 start-->
+    <!--房型房间 start-->
     <div class="txddItem roomNum">
-      <div class="titleDiv"><span class="icon txddIcon"></span>房型房间数</div>
+      <div class="titleDiv"><span class="icon txddIcon"></span>房型房间</div>
       <group>
-        <x-number class="cellItem" title="豪华大床房" :min="0" :max="8" :value="1"></x-number>
-        <x-number class="cellItem" title="豪华双床房1" :min="0" :max="8" :value="1"></x-number>
+        <x-number v-for="room in rooms" :key="room.id" class="cellItem" :title="room.name" :min="1" :max="room.max" v-model="room.count"></x-number>
       </group>
     </div>
-    <!--房型房间数 end-->
+    <!--房型房间 end-->
 
     <!--填写信息 start-->
     <div class="txddItem writeMes">
       <div class="titleDiv"><span class="icon txddIcon"></span>填写信息</div>
       <group>
-        <x-input title="姓名" name="username" placeholder="请输入姓名"></x-input>
-        <x-input title="手机" name="mobile" placeholder="请输入手机号码" keyboard="number" is-type="china-mobile"></x-input>
-        <x-input title="备注" placeholder="请输入您的备注信息"></x-input>
+        <x-input title="姓名" name="username" placeholder="请输入姓名" v-model="fullName"></x-input>
+        <x-input title="手机" name="mobile" placeholder="请输入手机号码" keyboard="number" is-type="china-mobile" v-model="mobile"></x-input>
+        <x-input title="备注" placeholder="请输入您的备注信息" v-model="remark"></x-input>
       </group>
     </div>
     <!--填写信息 end-->
@@ -57,7 +56,7 @@
       <div class="titleDiv"><span class="icon txddIcon"></span>请选择</div>
       <group>
         <cell title="到店时间" :value="checkInTime" is-link @click.native="showCheckTimePopup=true"></cell>
-        <cell title="优惠券" :value="Coupon" is-link @click.native="showCouponPopup=true"></cell>
+        <!--<cell title="优惠券" :value="Coupon" is-link @click.native="showCouponPopup=true"></cell>-->
       </group>
       <div v-transfer-dom>
         <popup v-model="showCheckTimePopup" class="checker-popup">
@@ -118,12 +117,12 @@
           <p class="fjmxTitle">订单明细</p>
           <div class="detailList">
             <group>
-              <cell title="合计" value="¥899"></cell>
+              <cell title="合计" :value="'¥' + totalPrice"></cell>
               <cell-form-preview :list="detailList"></cell-form-preview>
             </group>
           </div>
           <div class="detailTime">
-            01月07日入住，01月08日离店
+            {{ checkIn }}入住，{{ checkOut }}离店
           </div>
           <span class="icon popclose" @click="detailed = false"></span>
         </div>
@@ -132,16 +131,22 @@
     <!--明细弹出框 end-->
 
     <div class="footer">
-      <div class="sub01"><span class="span1">总价:</span><span>¥899</span></div>
+      <div class="sub01"><span class="span1">总价:</span><span>{{ totalPrice }}</span></div>
       <div class="sub02" @click="detailed = true">明细</div>
-      <router-link class="footerBut" :to="{ path: '/BookSucess' }">提交订单</router-link>
+      <div class="footerBut" @click="onSubmit">提交订单</div>
     </div>
   </div>
 </template>
 
 <script>
+
 import SonHeader from '../SonHeader/SonHeader'
 import { Calendar,Group, Cell,CellBox,XNumber,XInput,Checker,CheckerItem,TransferDom,Popup,CellFormPreview} from 'vux'
+import axios from 'axios'
+import moment from 'moment'
+import _ from 'lodash'
+
+
 export default {
   name: 'fillInOrder',
   directives: {
@@ -150,29 +155,71 @@ export default {
   components:{SonHeader,Calendar,Group,Cell,CellBox,XNumber,XInput,Checker,CheckerItem,Popup,CellFormPreview},
   data () {
     return {
-      centermes:'填写订单',
       checkIn: 'TODAY',
-      checkOut: 'TODAY',
+      checkOut: moment().add(1, 'days').format('YYYY-MM-DD'),
       title: '',
       checkInTime: '请选择',
       Coupon: '请选择',
       showCheckTimePopup: false,
       showCouponPopup: false,
       detailed: false,
-      detailList: [{
-        label: '豪华大床房',
-        value: '1晚 1间'
-      }, {
-        label: '豪华大床房',
-        value: '1晚 1间'
-      }, {
-        label: '豪华大床房',
-        value: '1晚 1间'
-      }]
+      rooms: [],
+      fullName: '',
+      mobile: '',
+      remark: '',
     }
   },
   mounted() {
+    this.checkIn = this.$route.query.checkIn || this.checkIn
+    this.checkOut = this.$route.query.checkOut || this.checkOut
+    const rooms = this.$route.query.rooms || ''
+    const items = _.split(rooms, ',')
+    _.forEach(items, (item) => {
+      console.log(item)
+      let temp = _.split(item, '.')
+      if(temp.length === 2){
+        let roomId = temp[0]
+        let count = temp[1]
+        const url = `https://jinns.top/api/book/rooms/${roomId}/`
+        axios.get(url).then(res => {
+          const roomData = res.data
+          roomData.max = 10
+          roomData.count = _.toInteger(count)
+          this.rooms.push(roomData)
+        })
+      }
+    })
+  },
+  computed: {
+    checkDays () {
+      const checkIn = moment(this.checkIn, 'YYYY-MM-DD')
+      const checkOut = moment(this.checkOut, 'YYYY-MM-DD')
+      const microseconds = checkOut - checkIn
+      let days = microseconds / 1000 / 3600 / 24
+      if(days <= 0){
+        this.checkOut = checkIn.add(1, 'days').format('YYYY-MM-DD')
+        days = 1
+      }
+      return days
+    },
+    totalPrice () {
+      let t = 0
+      _.forEach(this.rooms, (room) => {
+        t += room.count * room.price
+      })
+      return t
+    },
+    detailList () {
+      let t = []
+      _.forEach(this.rooms, (room) => {
+        t.push({
+          label: room.name,
+          value: `${this.checkDays}晚 ${room.count}间`
+        })
+      })
+      return t
 
+    }
   },
   methods: {
     oncheckInTimeClick (value, disabled) {
@@ -187,6 +234,34 @@ export default {
         this.showCouponPopup = false
       }
     },
+    onSubmit () {
+      const arrive = this.checkInTime !== '请选择' && this.checkInTime || ''
+      if(!this.fullName || !this.mobile) {
+        this.$vux.toast.show({
+          text: '请填写姓名与手机',
+          type: 'warn',
+          width: '12em'
+        })
+        return
+      }
+      const url = 'https://jinns.top/api/customer/orders/checkout/'
+      const data = {
+        full_name: this.fullName,
+        mobile: this.mobile,
+        remark: this.remark,
+        arrive,
+        starts_at: this.checkIn,
+        ends_at: this.checkOut,
+        rooms: this.rooms,
+      }
+      axios.post(url, data).then(res => {
+        console.log(res.data)
+        const orderNumber = res.data.order_number
+        this.$root.$router.push('/BookSucess/' + orderNumber)
+      }).catch(res => {
+        this.$vux.toast.show({text: res.data.detail, type: 'warn'})
+      })
+    }
   }
 }
 </script>
