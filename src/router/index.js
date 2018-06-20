@@ -29,7 +29,7 @@ export default new Router({
     },
     {
       //订单支付
-      path: '/orderPay',
+      path: '/orderPay/:orderNumber',
       name: 'orderPay',
       component: orderPay
     }

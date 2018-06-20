@@ -131,7 +131,7 @@
     <!--明细弹出框 end-->
 
     <div class="footer">
-      <div class="sub01"><span class="span1">总价:</span><span>{{ totalPrice }}</span></div>
+      <div class="sub01"><span class="span1">总价:</span><span>¥{{ totalPrice }}</span></div>
       <div class="sub02" @click="detailed = true">明细</div>
       <div class="footerBut" @click="onSubmit">提交订单</div>
     </div>

@@ -27,7 +27,7 @@
       <div class="totalPay">房费总价：<span>¥{{ order.price }}</span> <a @click="detailed = true">订单详情</a></div>
     </div>
     <div class="orderbut" v-if="remainTime != '已超时'">
-      <router-link :to="{ path: '/orderPay' }">
+      <router-link :to="{ path: '/orderPay/' + orderNumber }">
         <x-button :gradients="['#f2a43a', '#f8d850']">预付房费</x-button>
       </router-link>
     </div>
@@ -61,7 +61,6 @@ export default {
     }
   },
   mounted() {
-    this.refreshRemainTime()
     const url = `http://jinns.top/api/customer/orders/${this.orderNumber}/`
     axios.get(url).then(res => {
       console.log(res.data)
@@ -74,6 +73,7 @@ export default {
         })
       })
     })
+    this.refreshRemainTime()
   },
   methods: {
     refreshRemainTime (){
