@@ -252,8 +252,7 @@ export default {
     }
   },
   mounted() {
-    console.log(this.$customer)
-    // this.$login_by_openid('abcde12345')
+    this.$login_by_openid('abcde12345')
     var that = this;
     that.swiperImgCont = imgList.length;
     that.bili = 235/360;
