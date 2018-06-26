@@ -61,8 +61,7 @@ export default {
     }
   },
   mounted() {
-    const url = `http://jinns.top/api/customer/orders/${this.orderNumber}/`
-    axios.get(url).then(res => {
+    this.$axios.get(`/api/customer/orders/${this.orderNumber}/`).then(res => {
       console.log(res.data)
       this.order = res.data
       this.detailList = []

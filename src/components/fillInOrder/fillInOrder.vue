@@ -180,8 +180,7 @@ export default {
       if(temp.length === 2){
         let roomId = temp[0]
         let count = temp[1]
-        const url = `https://jinns.top/api/book/rooms/${roomId}/`
-        axios.get(url).then(res => {
+        this.$axios.get(`/api/book/rooms/${roomId}/`).then(res => {
           const roomData = res.data
           roomData.max = 10
           roomData.count = _.toInteger(count)
@@ -205,7 +204,7 @@ export default {
     totalPrice () {
       let t = 0
       _.forEach(this.rooms, (room) => {
-        t += room.count * room.price
+        t += room.count * room.price * this.checkDays
       })
       return t
     },
@@ -244,7 +243,7 @@ export default {
         })
         return
       }
-      const url = 'https://jinns.top/api/customer/orders/checkout/'
+      const url = '/api/customer/orders/checkout/'
       const data = {
         full_name: this.fullName,
         mobile: this.mobile,
@@ -254,7 +253,7 @@ export default {
         ends_at: this.checkOut,
         rooms: this.rooms,
       }
-      axios.post(url, data).then(res => {
+      this.$axios.post(url, data).then(res => {
         console.log(res.data)
         const orderNumber = res.data.order_number
         this.$root.$router.push('/BookSucess/' + orderNumber)

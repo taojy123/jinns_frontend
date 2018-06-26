@@ -4,6 +4,7 @@ import BookRoom from '@/components/BookRoom/BookRoom'
 import fillInOrder from '@/components/fillInOrder/fillInOrder'
 import BookSucess from '@/components/BookSucess/BookSucess'
 import orderPay from '@/components/orderPay/orderPay'
+import orders from '@/components/orders/orders'
 
 Vue.use(Router)
 
@@ -32,6 +33,12 @@ export default new Router({
       path: '/orderPay/:orderNumber',
       name: 'orderPay',
       component: orderPay
-    }
+    },
+    {
+      //订单列表
+      path: '/orders',
+      name: 'orders',
+      component: orders
+    },
   ]
 })
