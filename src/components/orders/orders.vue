@@ -57,7 +57,7 @@ export default {
     fetchList(){
       this.$axios.get(`/api/customer/orders/`, {params: this.filters}).then(res => {
         console.log(res.data)
-        this.orders = res.data
+        this.orders = res.data.results || res.data
       })
     }
   },

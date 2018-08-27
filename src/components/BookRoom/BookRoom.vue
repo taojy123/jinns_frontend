@@ -260,7 +260,7 @@ export default {
 
 
     this.$axios.get('/api/book/rooms/').then(res => {
-      const rooms = res.data
+      const rooms = res.data.results || res.data
       this.rooms = rooms
     })
 
