@@ -6,8 +6,12 @@ blockquote,q{quotes:none}
 blockquote:after,blockquote:before,q:after,q:before{content:'';content:none}
 table{border-collapse:collapse;border-spacing:0}
 a{text-decoration:none;}
-html ,body{height:100%; font-family: "Helvetica Neue",Helvetica,STHeiTi,sans-serif;}
-#app {height:100%;} 
+html ,body{
+  height:100%;
+  /*font-family: "Helvetica Neue",Helvetica,STHeiTi,sans-serif;*/
+  font-family: Helvetica Neue,PingFang SC,Hiragino Sans GB,Hiragino Sans GB W3,Source Han Sans,Noto Sans CJK Sc,Microsoft YaHei,Microsoft Jhenghei,Arial,sans-serif;
+}
+#app {height:100%;}
 img { border:none; vertical-align: middle; max-width: 100%; }
 input[type="button"], input[type="submit"], input[type="reset"],textarea {
 -webkit-appearance: none; box-shadow: none;

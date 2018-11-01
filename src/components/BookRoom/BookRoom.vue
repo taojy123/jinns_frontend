@@ -1,6 +1,6 @@
 <template>
   <div class="bookRoom paddingBottom62">
-    <Header></Header>
+    <Header center-mes="客房预订"></Header>
     <!--弹出酒店详情 start-->
     <div class="popDialog" v-transfer-dom>
       <x-dialog v-model="showHideOnBlur" class="dialog-demo">

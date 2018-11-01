@@ -1,7 +1,7 @@
 <template>
   <div class="header">
     <div class="leftHeadBut" @click="$root.$router.back()"><a class="icon leftIconArrow"></a></div>
-    <div class="centerHeadText">客房预订</div>
+    <div class="centerHeadText">{{centerMes}}</div>
     <div class="rightHeadBut"></div>
   </div>
 </template>
@@ -12,9 +12,9 @@ export default {
   name: 'Header',
   data () {
     return {
-
     }
   },
+  props: ['centerMes'],
   mounted() {
 
     // 滑动滚动条改变头部状态
@@ -67,4 +67,13 @@ export default {
     .leftHeadBut,.rightHeadBut{width: 40px; height: 40px;}
     .leftIconArrow{margin-left:10px; margin-top: 10px;}
   }
+
+  .header {
+    background: -webkit-linear-gradient(rgba(150,150,150,0.6), rgba(150,150,150,0)); /* Safari 5.1 - 6 */
+    background: -o-linear-gradient(rgba(150,150,150,0.6), rgba(150,150,150,0)); /* Opera 11.1 - 12*/
+    background: -moz-linear-gradient(rgba(150,150,150,0.6), rgba(150,150,150,0)); /* Firefox 3.6 - 15*/
+    background: linear-gradient(rgba(150,150,150,0.6), rgba(150,150,150,0)); /* 标准的语法 */
+  }
+
+
 </style>

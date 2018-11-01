@@ -5,6 +5,8 @@ import fillInOrder from '@/components/fillInOrder/fillInOrder'
 import BookSucess from '@/components/BookSucess/BookSucess'
 import orderPay from '@/components/orderPay/orderPay'
 import orders from '@/components/orders/orders'
+import products from '@/components/products/products'
+import product from '@/components/product/product'
 
 Vue.use(Router)
 
@@ -39,6 +41,18 @@ export default new Router({
       path: '/orders',
       name: 'orders',
       component: orders
+    },
+    {
+      //微商城 商品列表
+      path: '/products',
+      name: 'products',
+      component: products
+    },
+    {
+      //商品详情
+      path: '/products/:productId',
+      name: 'product',
+      component: product
     },
   ]
 })
