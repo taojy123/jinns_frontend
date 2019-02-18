@@ -1,52 +1,53 @@
 <template>
-  <div class="paddingtop">
-    <!--<son-header center-mes="商品详情"></son-header>-->
-    <Header center-mes="商品详情"></Header>
+  <div class="">
+    <!--<son-header center-mes="微商城"></son-header>-->
 
-    <div style="margin-top: -50px">
-      <img :src="product.pic" width="100%">
+    <div class="product-list">
+
+      <flexbox :gutter="0" wrap="wrap">
+          <flexbox-item :span="6" v-for="product in products" :key="product.id">
+            <router-link :to="{ path: '/products/' + product.id }">
+              <div class="item">
+                <div class="product-img">
+                  <img :src="product.pic">
+                </div>
+                <div class="product-name"><span>{{product.name}}</span></div>
+                <div class="product-price"><span>¥ {{product.price}}</span></div>
+              </div>
+            </router-link>
+          </flexbox-item>
+      </flexbox>
     </div>
-
-    <div style="padding: 20px">
-      <span style="float: left; font-size: 1.2em">{{product.name}}</span>
-      <span style="float: right">¥ {{product.price}}</span>
-
-    </div>
-
-    <group>
-      <cell title="真实姓名" :value="123"></cell>
-      <cell title="联系方式" :value="123"></cell>
-      <cell title="真实姓名" :value="123"></cell>
-      <cell title="联系方式" :value="123"></cell>
-    </group>
-
 
   </div>
 </template>
 
 <script>
-  import SonHeader from '../SonHeader/SonHeader'
-  import Header from '../Header/Header'
+import SonHeader from '../SonHeader/SonHeader'
 import axios from 'axios'
 import moment from 'moment'
 import _ from 'lodash'
 
 export default {
-  name: 'product',
-  components:{SonHeader, Header},
+  name: 'productPay',
+  components:{SonHeader},
   data () {
     return {
-      productId: this.$root.$route.params.productId,
-      product: {},
+      tabIndex: 0,
+      products: [],
+      filters: {},
     }
   },
   mounted() {
-    this.$axios.get(`/api/mall/products/${this.productId}/`).then(res => {
-      console.log(res.data)
-      this.product = res.data
-    })
+    this.fetchList()
   },
   methods: {
+    fetchList(){
+      this.$axios.get(`/api/mall/products/`, {params: this.filters}).then(res => {
+        console.log(res.data)
+        this.products = res.data.results || res.data
+      })
+    }
   },
   watch: {
   }

@@ -3,7 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import  { ToastPlugin, Actionsheet, Card, Flexbox, FlexboxItem, Group, Cell, CellBox, CellFormPreview } from 'vux'
+import  { ToastPlugin, Actionsheet, Card, Flexbox, FlexboxItem, Group, Cell, CellBox, CellFormPreview, Swiper } from 'vux'
 import { Tab, TabItem } from 'vux'
 import axios from 'axios'
 
@@ -19,6 +19,7 @@ Vue.component('cell-box', CellBox)
 Vue.component('cell-form-preview', CellFormPreview)
 Vue.component('tab', Tab)
 Vue.component('tab-item', TabItem)
+Vue.component('swiper', Swiper)
 
 
 
