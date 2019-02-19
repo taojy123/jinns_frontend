@@ -5,10 +5,14 @@ import fillInOrder from '@/components/fillInOrder/fillInOrder'
 import BookSucess from '@/components/BookSucess/BookSucess'
 import orderPay from '@/components/orderPay/orderPay'
 import orders from '@/components/orders/orders'
-import products from '@/components/products/products'
-import product from '@/components/product/product'
+import mall from '@/components/mall/mall'
+import products from '@/components/mall/products'
+import product from '@/components/mall/product'
+import mallOrders from '@/components/mall/orders'
+
 
 Vue.use(Router)
+
 
 export default new Router({
   routes: [
@@ -43,7 +47,13 @@ export default new Router({
       component: orders
     },
     {
-      //微商城 商品列表
+      //微商城首页
+      path: '/mall',
+      name: 'mall',
+      component: mall
+    },
+    {
+      //商品列表
       path: '/products',
       name: 'products',
       component: products
@@ -54,5 +64,11 @@ export default new Router({
       name: 'product',
       component: product
     },
+    {
+      //商城订单列表
+      path: '/mall/orders',
+      name: 'mallOrders',
+      component: mallOrders
+    }
   ]
 })

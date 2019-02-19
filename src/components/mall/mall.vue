@@ -1,45 +1,52 @@
 <template>
-  <div class="">
-    <!--<son-header center-mes="微商城"></son-header>-->
+  <div class="mall">
+
+    <swiper :list="product_imgs" height="300px" :auto="true" :show-dots="true" dots-position="center">
+    </swiper>
+
+    <img :src="hot_text_url" width="100%">
 
     <div class="product-list">
 
-      <flexbox :gutter="0" wrap="wrap">
-          <flexbox-item :span="6" v-for="product in products" :key="product.id">
-            <router-link :to="{ path: '/products/' + product.id }">
-              <div class="item">
-                <div class="product-img">
-                  <img :src="product.pic">
-                </div>
-                <div class="product-name"><span>{{product.name}}</span></div>
-                <div class="product-price"><span>¥ {{product.price}}</span></div>
-              </div>
-            </router-link>
-          </flexbox-item>
-      </flexbox>
+        <div v-for="product in products" :key="product.id">
+          <router-link :to="{ path: '/products/' + product.id }">
+            <div class="item">
+              <img :src="product.hot_pic" width="100%">
+            </div>
+          </router-link>
+        </div>
+
     </div>
+
+    <mall-footer></mall-footer>
 
   </div>
 </template>
 
 <script>
-import SonHeader from '../SonHeader/SonHeader'
 import axios from 'axios'
 import moment from 'moment'
 import _ from 'lodash'
+import mallFooter from "./footer";
+
 
 export default {
-  name: 'productPay',
-  components:{SonHeader},
+  name: 'products',
+  components:{mallFooter},
   data () {
     return {
-      tabIndex: 0,
       products: [],
-      filters: {},
+      filters: {is_hot: 1},
+      hot_text_url: require('../../assets/imgs/hot_text.jpg')
     }
   },
   mounted() {
     this.fetchList()
+  },
+  computed: {
+    product_imgs(){
+      return this.products.map((item) => ({img: item.pic}))
+    }
   },
   methods: {
     fetchList(){
@@ -72,22 +79,6 @@ export default {
 
   .item{
     padding: 5px;
-  }
-
-  .product-img {
-    position:relative;
-    width:100%;
-    height:0;
-    padding-top:100%;
-  }
-
-  .product-img img {
-    position:absolute;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    border-radius: 10px;
   }
 
   .product-name {

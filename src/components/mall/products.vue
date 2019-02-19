@@ -1,43 +1,53 @@
 <template>
-  <div class="">
+  <div class="products">
 
-
-    <swiper :list="product_imgs" height="300px" :auto="true" :show-dots="true" dots-position="center">
-    </swiper>
-
-    <img :src="hot_text_url" width="100%">
+    <divider>{{title}}</divider>
 
     <div class="product-list">
 
-        <div v-for="product in products" :key="product.id">
+      <flexbox :gutter="0" wrap="wrap">
+        <flexbox-item :span="6" v-for="product in products" :key="product.id">
           <router-link :to="{ path: '/products/' + product.id }">
             <div class="item">
-              <img :src="product.hot_pic" width="100%">
+              <div class="product-img">
+                <img :src="product.pic">
+              </div>
+              <div class="product-name"><span>{{product.name}}</span></div>
+              <div class="product-price"><span>¥ {{product.price}}</span></div>
             </div>
           </router-link>
-        </div>
+        </flexbox-item>
+      </flexbox>
 
     </div>
+
+
+    <mall-footer></mall-footer>
 
   </div>
 </template>
 
 <script>
-import SonHeader from '../SonHeader/SonHeader'
 import axios from 'axios'
 import moment from 'moment'
 import _ from 'lodash'
+import mallFooter from "./footer";
 
 
 export default {
   name: 'products',
-  components:{SonHeader},
+  components:{mallFooter},
   data () {
+    let title = '全部商品'
+    const filters = {}
+    if (this.$route.query.hot) {
+      title = '本月热卖'
+      filters.is_hot = 1
+    }
     return {
-      tabIndex: 0,
       products: [],
-      filters: {},
-      hot_text_url: require('../../assets/imgs/hot_text.jpg')
+      filters,
+      title,
     }
   },
   mounted() {
