@@ -28,6 +28,7 @@ export default {
   .leftHeadBut{width: 2.875rem; height: 2.875rem; position: absolute; left:0; top:0;}
   .rightHeadBut{width: 2.875rem; height: 2.875rem; position: absolute; right:0; top:0;}
   .leftIconArrow{ width: 1.25rem; height: 1.25rem; background-position: -22px 0px; margin-left:0.8125rem; margin-top: 0.8125rem;}
+
   @media screen and (max-width: 768px){
 
   }

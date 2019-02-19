@@ -31,12 +31,13 @@
 import axios from 'axios'
 import moment from 'moment'
 import _ from 'lodash'
-import mallFooter from "./footer";
+import mallFooter from "./footer"
+import sonHeader from '../SonHeader/SonHeader'
 
 
 export default {
   name: 'products',
-  components:{mallFooter},
+  components:{sonHeader, mallFooter},
   data () {
     let title = '全部商品'
     const filters = {}
@@ -51,6 +52,7 @@ export default {
     }
   },
   mounted() {
+    document.title = this.title
     this.fetchList()
   },
   computed: {
@@ -101,7 +103,6 @@ export default {
     text-align: center;
     margin: 10px 0 20px 0;
   }
-
 
   @media screen and (max-width: 768px){
 

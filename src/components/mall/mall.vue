@@ -1,6 +1,8 @@
 <template>
   <div class="mall">
 
+    <mall-header center-mes="微商城" :need-back="false"></mall-header>
+
     <swiper :list="product_imgs" height="300px" :auto="true" :show-dots="true" dots-position="center">
     </swiper>
 
@@ -28,11 +30,12 @@ import axios from 'axios'
 import moment from 'moment'
 import _ from 'lodash'
 import mallFooter from "./footer";
+import mallHeader from '../Header/Header'
 
 
 export default {
   name: 'products',
-  components:{mallFooter},
+  components:{mallHeader, mallFooter},
   data () {
     return {
       products: [],
@@ -41,6 +44,7 @@ export default {
     }
   },
   mounted() {
+    document.title = '微商城'
     this.fetchList()
   },
   computed: {

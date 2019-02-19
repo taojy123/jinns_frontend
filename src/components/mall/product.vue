@@ -1,39 +1,37 @@
 <template>
-  <div class="paddingtop">
-    <!--<son-header center-mes="商品详情"></son-header>-->
-    <Header center-mes="商品详情"></Header>
+  <div class="product">
 
-    <div style="margin-top: -50px">
+    <div class="product-img">
       <img :src="product.pic" width="100%">
     </div>
 
-    <div style="padding: 20px">
-      <span style="float: left; font-size: 1.2em">{{product.name}}</span>
-      <span style="float: right">¥ {{product.price}}</span>
-
+    <div class="product-info">
+      <div class="product-name">{{product.name}}</div>
+      <div class="product-description">{{product.description}}</div>
+      <div class="product-buy">
+        <div class="product-price">¥ {{product.price}}</div>
+        <div class="buy-button" @click="buy">立即购买</div>
+      </div>
     </div>
 
-    <group>
-      <cell title="真实姓名" :value="123"></cell>
-      <cell title="联系方式" :value="123"></cell>
-      <cell title="真实姓名" :value="123"></cell>
-      <cell title="联系方式" :value="123"></cell>
-    </group>
+    <div class="description-img">
+      <img :src="product.description_pic" width="100%">
+    </div>
 
+    <mall-footer></mall-footer>
 
   </div>
 </template>
 
 <script>
-  import SonHeader from '../SonHeader/SonHeader'
-  import Header from '../Header/Header'
 import axios from 'axios'
 import moment from 'moment'
 import _ from 'lodash'
+import mallFooter from "./footer"
 
 export default {
   name: 'product',
-  components:{SonHeader, Header},
+  components:{mallFooter},
   data () {
     return {
       productId: this.$root.$route.params.productId,
@@ -47,6 +45,9 @@ export default {
     })
   },
   methods: {
+    buy() {
+      alert('11')
+    }
   },
   watch: {
   }
@@ -56,50 +57,45 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
 
-  .paddingtop {
-    padding-top: 50px;
+  .product-info{
+    padding: 20px;
   }
 
-  .product-list a {
-    color: black;
+  .product-name{
+    font-size: 17px;
   }
 
-  .product-list {
-    min-height: calc(100vh - 100px);
-    padding: 5px;
+  .product-description{
+    font-size: 14px;
+    color: #999;
+    margin: 15px 0;
   }
 
-  .item{
-    padding: 5px;
+  .product-buy{
+    height: 30px;
   }
 
-  .product-img {
-    position:relative;
-    width:100%;
-    height:0;
-    padding-top:100%;
+  .product-price{
+    font-size: 18px;
+    color: #f90;
+    margin-top: 10px;
+    float: left;
   }
 
-  .product-img img {
-    position:absolute;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    border-radius: 10px;
+  .buy-button{
+    font-size: 18px;
+    color: #fff;
+    background-color: #f90;
+    float: right;
+    padding: 10px;
+    border-radius: 3px;
+    cursor: pointer;
   }
 
-  .product-name {
-    text-align: center;
-    margin: 5px;
-    color: #999999;
+  .description-img{
+    padding: 10px 5px;
+    background-color: #f8f8f8;
   }
-
-  .product-price {
-    text-align: center;
-    margin: 10px 0 20px 0;
-  }
-
 
   @media screen and (max-width: 768px){
 

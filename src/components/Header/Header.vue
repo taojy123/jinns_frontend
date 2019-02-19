@@ -1,6 +1,6 @@
 <template>
   <div class="header">
-    <div class="leftHeadBut" @click="$root.$router.back()"><a class="icon leftIconArrow"></a></div>
+    <div class="leftHeadBut" @click="$root.$router.back()" v-if="needBack"><a class="icon leftIconArrow"></a></div>
     <div class="centerHeadText">{{centerMes}}</div>
     <div class="rightHeadBut"></div>
   </div>
@@ -9,12 +9,18 @@
 <script>
 import '../../assets/js/jquery.min.js'
 export default {
-  name: 'Header',
+  name: 'header',
   data () {
     return {
     }
   },
-  props: ['centerMes'],
+  props: {
+    centerMes: String,
+    needBack: {
+      type: Boolean,
+      default: true
+    },
+  },
   mounted() {
 
     // 滑动滚动条改变头部状态

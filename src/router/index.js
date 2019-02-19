@@ -1,14 +1,14 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import BookRoom from '@/components/BookRoom/BookRoom'
-import fillInOrder from '@/components/fillInOrder/fillInOrder'
-import BookSucess from '@/components/BookSucess/BookSucess'
-import orderPay from '@/components/orderPay/orderPay'
-import orders from '@/components/orders/orders'
-import mall from '@/components/mall/mall'
-import products from '@/components/mall/products'
-import product from '@/components/mall/product'
-import mallOrders from '@/components/mall/orders'
+import BookRoom from '../components/BookRoom/BookRoom'
+import fillInOrder from '../components/fillInOrder/fillInOrder'
+import BookSucess from '../components/BookSucess/BookSucess'
+import orderPay from '../components/orderPay/orderPay'
+import orders from '../components/orders/orders'
+import mall from '../components/mall/mall'
+import products from '../components/mall/products'
+import product from '../components/mall/product'
+import mallOrders from '../components/mall/orders'
 
 
 Vue.use(Router)
