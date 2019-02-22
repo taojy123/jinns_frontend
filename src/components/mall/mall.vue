@@ -1,8 +1,6 @@
 <template>
   <div class="mall">
 
-    <mall-header center-mes="微商城" :need-back="false"></mall-header>
-
     <swiper :list="product_imgs" height="300px" :auto="true" :show-dots="true" dots-position="center">
     </swiper>
 
@@ -34,7 +32,7 @@ import mallHeader from '../Header/Header'
 
 
 export default {
-  name: 'products',
+  name: 'mall',
   components:{mallHeader, mallFooter},
   data () {
     return {

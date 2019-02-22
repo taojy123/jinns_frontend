@@ -6,14 +6,14 @@
     <div class="mall-footer">
       <flexbox :gutter="0">
         <flexbox-item>
-          <div class="footer-item">
+          <div class="footer-item vux-1px-r">
             <router-link :to="{ path: '/mall' }">
               微商城
             </router-link>
           </div>
         </flexbox-item>
         <flexbox-item>
-          <div class="footer-item">
+          <div class="footer-item vux-1px-r">
             <router-link :to="{ path: '/products' }">
               全部商品
             </router-link>
@@ -52,8 +52,8 @@ export default {
   .mall-footer{
     position: fixed;
     bottom: -1px;
-    left:-1px;
-    right: -1px;
+    left:0;
+    right: 0;
     border-top: 1px solid #f0f0f0;
     height: 40px;
     background-color: #fff;
@@ -62,7 +62,7 @@ export default {
 
   .footer-item{
     text-align: center;
-    border-left: 1px solid #f0f0f0;
+    /*border-left: 1px solid #f0f0f0;*/
     height: 40px;
     padding: 12px;
     font-weight: 300;

@@ -10,7 +10,7 @@
       <div class="product-description">{{product.description}}</div>
       <div class="product-buy">
         <div class="product-price">¥ {{product.price}}</div>
-        <div class="buy-button" @click="buy">立即购买</div>
+        <router-link class="buy-button" :to="{ path: '/checkout/' + productId }">立即购买</router-link>
       </div>
     </div>
 

@@ -9,6 +9,7 @@ import mall from '../components/mall/mall'
 import products from '../components/mall/products'
 import product from '../components/mall/product'
 import mallOrders from '../components/mall/orders'
+import checkout from '../components/mall/checkout'
 
 
 Vue.use(Router)
@@ -63,6 +64,12 @@ export default new Router({
       path: '/products/:productId',
       name: 'product',
       component: product
+    },
+    {
+      //商品详情
+      path: '/checkout/:productId',
+      name: 'checkout',
+      component: checkout
     },
     {
       //商城订单列表
