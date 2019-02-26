@@ -6,7 +6,7 @@ import router from './router'
 import { Tab, TabItem } from 'vux'
 import axios from 'axios'
 import  { ToastPlugin, Actionsheet, Card, Flexbox, FlexboxItem, Group, Cell, CellBox,
-  CellFormPreview, Swiper, Divider, Icon, XNumber } from 'vux'
+  CellFormPreview, Swiper, Divider, Icon, XNumber, InlineXNumber, Radio } from 'vux'
 
 
 Vue.use(ToastPlugin)
@@ -24,6 +24,8 @@ Vue.component('swiper', Swiper)
 Vue.component('divider', Divider)
 Vue.component('icon', Icon)
 Vue.component('x-number', XNumber)
+Vue.component('inline-x-number', InlineXNumber)
+Vue.component('radio', Radio)
 
 
 
@@ -48,7 +50,8 @@ $axios.interceptors.response.use((res) => {
   if (err.response) {
     const res = err.response
     const error_message = res.data.detail || (res.data.non_field_errors && res.data.non_field_errors[0]) || res.data
-    this.$vux.toast.show({text: error_message, type: 'warn'})
+    // this.$vux.toast.show({text: error_message, type: 'warn'})
+    console.log(error_message)
     if (res.status == 403 || res.status == 401) {
       goToLogin()
     }
@@ -71,10 +74,13 @@ if (customertoken) {
   Vue.prototype.$customer = {'pending': true}
   $axios.get('/api/customer/customers/').then(res => {
     Vue.prototype.$customer = res.data
+    Vue.prototype.$customer.pending = false
+    console.log('customer loading finish!')
   })
 } else {
   Vue.prototype.$customer = {}
 }
+
 // ===============================================================
 
 

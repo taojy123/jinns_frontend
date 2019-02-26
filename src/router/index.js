@@ -3,13 +3,14 @@ import Router from 'vue-router'
 import BookRoom from '../components/BookRoom/BookRoom'
 import fillInOrder from '../components/fillInOrder/fillInOrder'
 import BookSucess from '../components/BookSucess/BookSucess'
-import orderPay from '../components/orderPay/orderPay'
+import roomOrder from '../components/roomOrder/roomOrder'
 import orders from '../components/orders/orders'
 import mall from '../components/mall/mall'
 import products from '../components/mall/products'
 import product from '../components/mall/product'
 import mallOrders from '../components/mall/orders'
 import checkout from '../components/mall/checkout'
+import payment from '../components/payment/payment'
 
 
 Vue.use(Router)
@@ -36,10 +37,10 @@ export default new Router({
       component: BookSucess
     },
     {
-      //订单支付
-      path: '/orderPay/:orderNumber',
-      name: 'orderPay',
-      component: orderPay
+      //订房订单
+      path: '/roomOrder/:orderNumber',
+      name: 'roomOrder',
+      component: roomOrder
     },
     {
       //订单列表
@@ -76,6 +77,12 @@ export default new Router({
       path: '/mall/orders',
       name: 'mallOrders',
       component: mallOrders
-    }
+    },
+    {
+      //支付订单
+      path: '/payment/:orderNumber',
+      name: 'payment',
+      component: payment
+    },
   ]
 })

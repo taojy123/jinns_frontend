@@ -3,21 +3,22 @@
 
     <div class="card1">
       <div class="title"><icon type="success"></icon>微商城订单确认</div>
+
       <div class="product-info">
-        <flexbox :gutter="0">
-          <flexbox-item :span="3">
-            <div class="product-img"><img :src="product.pic" width="100%"></div>
-          </flexbox-item>
-          <flexbox-item :span="9">
-            <div class="product-list">
-              <div class="product-name">{{product.name}}</div>
-              <div class="product-price">
-                ¥ {{product.price}}
-              </div>
-              <div class="quantity"><x-number :min="0" :max="99" v-model="quantity" align="left"></x-number></div>
-            </div>
-          </flexbox-item>
-        </flexbox>
+        <div class="product-img"><img :src="product.pic" width="100%"></div>
+
+        <group>
+          <cell :title="product.name">
+          </cell>
+          <cell :title="'¥ ' + product.price">
+            <inline-x-number :min="1" v-model="quantity"></inline-x-number>
+          </cell>
+          <cell>
+            <span slot="title" class="total-price">¥ {{total_price}}</span>
+            <span class="submit-button" @click="submit">提交订单</span>
+          </cell>
+        </group>
+
       </div>
     </div>
 
@@ -39,19 +40,39 @@ export default {
     return {
       productId: this.$root.$route.params.productId,
       product: {},
-      quantity: 1
+      quantity: 1,
     }
   },
   mounted() {
+    document.title = '提交订单'
     this.$axios.get(`/api/mall/products/${this.productId}/`).then(res => {
       console.log(res.data)
       this.product = res.data
     })
   },
   methods: {
-    buy() {
-      alert('11')
+    submit() {
+      const url = '/api/customer/orders/checkout/'
+      const data = {
+        category: 'mall',
+        products: [{
+          id: this.productId,
+          count: this.quantity,
+        }],
+      }
+      this.$axios.post(url, data).then(res => {
+        console.log(res.data)
+        const order_number = res.data.order_number
+        this.$root.$router.push('/payment/' + order_number)
+      }).catch(res => {
+        this.$vux.toast.show({text: res.data.detail, type: 'warn'})
+      })
     }
+  },
+  computed: {
+    total_price() {
+      return this.quantity * this.product.price
+    },
   },
   watch: {
   }
@@ -77,18 +98,27 @@ export default {
     padding: 10px;
   }
 
-  .product-list div{
-    padding: 4px;
+
+  .vux-inline-x-number{
+    margin-right: -5px;
   }
 
-  .product-price{
+  .vux-inline-x-number  /deep/ .vux-number-input{
+    font-size: 16px;
+  }
+
+  .total-price{
     color: red;
-    margin-left: 10px;
   }
 
-  /deep/ .quantity .vux-number-input{
-    font-size: 10px;
+  .submit-button{
+    font-size: 16px;
+    color: white;
+    padding: 5px 13px;
+    background: orange;
+    border-radius: 4px;
   }
+
   @media screen and (max-width: 768px){
 
   }

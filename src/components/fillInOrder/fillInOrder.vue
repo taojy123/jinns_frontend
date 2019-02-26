@@ -245,10 +245,11 @@ export default {
       }
       const url = '/api/customer/orders/checkout/'
       const data = {
+        category: 'room',
         full_name: this.fullName,
         mobile: this.mobile,
         remark: this.remark,
-        arrive,
+        arrive: arrive,
         starts_at: this.checkIn,
         ends_at: this.checkOut,
         rooms: this.rooms,

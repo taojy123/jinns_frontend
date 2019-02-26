@@ -1,5 +1,5 @@
 <template>
-  <div class="orderPay paddingtop">
+  <div class="roomOrder paddingtop">
     <son-header center-mes="我的订单"></son-header>
 
     <tab v-model="tabIndex">
@@ -11,7 +11,7 @@
 
     <div class="order-groups">
       <group v-for="order in orders" :key="order.id">
-        <router-link class="footerA" :to="{ path: '/orderPay/' + order.order_number }">
+        <router-link class="footerA" :to="{ path: '/roomOrder/' + order.order_number }">
           <cell :title="order.title" :value="order.get_status_display"></cell>
           <cell-box>
             <flexbox>
@@ -41,7 +41,7 @@ import moment from 'moment'
 import _ from 'lodash'
 
 export default {
-  name: 'orderPay',
+  name: 'orders',
   components:{SonHeader},
   data () {
     return {

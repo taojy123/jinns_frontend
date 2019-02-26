@@ -27,7 +27,7 @@
       <div class="totalPay">房费总价：<span>¥{{ order.price }}</span> <a @click="detailed = true">订单详情</a></div>
     </div>
     <div class="orderbut" v-if="remainTime != '已超时'">
-      <router-link :to="{ path: '/orderPay/' + orderNumber }">
+      <router-link :to="{ path: '/roomOrder/' + orderNumber }">
         <x-button :gradients="['#f2a43a', '#f8d850']">预付房费</x-button>
       </router-link>
     </div>
