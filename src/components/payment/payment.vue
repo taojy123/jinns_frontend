@@ -49,17 +49,17 @@
       </cell-box>
     </group>
 
-    <group title="可选择优惠券" v-if="coupon_codes.length">
+    <group title="可选择优惠券" v-if="order.status == 'pending' && coupon_codes.length">
       <radio :options="coupon_codes" :selected-label-style="{color: '#FF9900'}" v-model="coupon_code_id"></radio>
     </group>
 
-    <group title="可选择抵扣方式" v-if="channels.length">
+    <group title="可选择抵扣方式" v-if="order.status == 'pending' && channels.length">
       <radio :options="channels" :selected-label-style="{color: '#FF9900'}" v-model="channel"></radio>
     </group>
 
-    <div class="footer">
+    <div class="footer" v-if="order.status == 'pending'">
       <div class="sub01"><span class="span1">还需支付:</span><span class="price">¥ {{ remain_price }}</span></div>
-      <div class="footerBut" @click="test">{{pay_text}}</div>
+      <div class="footerBut" @click="pay">{{pay_text}}</div>
     </div>
 
   </div>
@@ -97,15 +97,36 @@ export default {
     this.fetch_customer_ready()
   },
   methods: {
-    test() {
-      console.log(this.$customer)
-    },
     fetch_customer_ready() {
       this.customer_ready = this.$customer && (this.$customer.pending == false)
       if (!this.customer_ready) {
         setTimeout(this.fetch_customer_ready, 1000)
       }
-    }
+    },
+    pay() {
+      const url = `/api/customer/orders/${this.orderNumber}/pay/`
+      const data = {
+        coupon_code_id: this.coupon_code_id,
+        channel: this.channel,
+      }
+      this.$axios.post(url, data).then(res => {
+        console.log(res.data)
+        this.order = res.data
+        if (this.order.status == 'paid') {
+          this.$vux.toast.show({
+            text: '恭喜，订单支付成功！',
+            type: 'success',
+            width: '12em'
+          })
+        } else if (this.order.unpaid_price > 0) {
+          this.$vux.toast.show({
+            text: '暂时无法进行微信支付 请充值余额付款',
+            type: 'warn',
+            width: '12em'
+          })
+        }
+      })
+    },
   },
   computed: {
     remain_price() {
@@ -119,8 +140,8 @@ export default {
       if (this.channel === 'balance') {
         total_price -= this.$customer.balance
       }
-      if (this.channel === 'points') {
-        total_price -= this.$customer.points / 100
+      if (this.channel === 'point') {
+        total_price -= this.$customer.point / 100
       }
       if (total_price < 0) {
         total_price = 0
@@ -141,8 +162,8 @@ export default {
           key: 'balance',
         },
         {
-          value: `个人积分 [¥${this.$customer.points/100} (${this.$customer.points}积分)]`,
-          key: 'points',
+          value: `个人积分 [¥${this.$customer.point/100} (${this.$customer.point}积分)]`,
+          key: 'point',
         },
       ]
     },

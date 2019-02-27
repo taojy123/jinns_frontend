@@ -1,6 +1,6 @@
 <template>
   <div class="paddingtop">
-    <son-header center-mes="我的订单"></son-header>
+    <son-header center-mes="商城订单"></son-header>
 
     <tab v-model="tabIndex">
       <tab-item>全部订单</tab-item>
@@ -11,7 +11,7 @@
 
     <div class="order-groups">
       <group v-for="order in orders" :key="order.id">
-        <router-link class="footerA" :to="{ path: '/roomOrder/' + order.order_number }">
+        <router-link class="footerA" :to="{ path: '/payment/' + order.order_number }">
           <cell :title="order.title" :value="order.get_status_display"></cell>
           <cell-box>
             <flexbox>
@@ -21,9 +21,8 @@
                 </div>
               </flexbox-item>
               <flexbox-item :span="9">
-                <div class="order-days">{{ order.starts_at }}至{{ order.ends_at }} 共{{order.days}}晚</div>
+                <div class="order-days">{{order.title}}</div>
                 <div class="order-price">订单总额：<span class="red">¥{{order.price}}元</span></div>
-                <div class="order-remark">{{ order.remark }}</div>
               </flexbox-item>
             </flexbox>
           </cell-box>
@@ -55,7 +54,7 @@ export default {
   },
   methods: {
     fetchList(){
-      this.$axios.get(`/api/customer/orders/`, {params: this.filters}).then(res => {
+      this.$axios.get(`/api/customer/orders/?category=mall`, {params: this.filters}).then(res => {
         console.log(res.data)
         this.orders = res.data.results || res.data
       })

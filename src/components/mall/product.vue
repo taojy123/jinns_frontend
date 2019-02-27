@@ -45,9 +45,6 @@ export default {
     })
   },
   methods: {
-    buy() {
-      alert('11')
-    }
   },
   watch: {
   }

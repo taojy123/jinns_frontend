@@ -50,7 +50,8 @@
     <div class="footer">
       <div class="sub01"><span class="span1">总价:</span><span>¥{{ order.price }}</span></div>
       <div class="footerBut">
-        <router-link :to="{ path: '/payment/' + orderNumber }">去支付</router-link>
+        <router-link :to="{ path: '/payment/' + orderNumber }" v-if="order.status == 'pending'">去支付</router-link>
+        <span v-else>{{order.get_status_display}}</span>
       </div>
     </div>
 
