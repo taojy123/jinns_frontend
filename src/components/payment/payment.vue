@@ -2,7 +2,7 @@
   <div class="payment">
 
     <group class="order-list">
-      <cell :title="order.get_status_display + '订单'" :value="orderNumber"></cell>
+      <cell class="order-number" :title="order.get_status_display + '订单'" :value="orderNumber"></cell>
       <cell-box v-for="item in order.order_rooms" :key="item.id">
         <flexbox>
           <flexbox-item :span="3">
@@ -35,7 +35,7 @@
           </flexbox-item>
         </flexbox>
       </cell-box>
-      <cell-box>
+      <cell-box class="total">
         <flexbox>
           <flexbox-item :span="3">
             <div class="price-title">总计:</div>
@@ -59,7 +59,7 @@
 
     <div class="footer">
       <div class="sub01"><span class="span1">还需支付:</span><span class="price">¥ {{ remain_price }}</span></div>
-      <div class="footerBut" @click="test">确定支付</div>
+      <div class="footerBut" @click="test">{{pay_text}}</div>
     </div>
 
   </div>
@@ -137,14 +137,21 @@ export default {
         //   key: '',
         // },
         {
-          value: `账户余额 [剩余: ${this.$customer.balance}]`,
+          value: `账户余额 [¥${this.$customer.balance}]`,
           key: 'balance',
         },
         {
-          value: `个人积分 [剩余: ${this.$customer.points}] 100积分=1元`,
+          value: `个人积分 [¥${this.$customer.points/100} (${this.$customer.points}积分)]`,
           key: 'points',
         },
       ]
+    },
+    pay_text(){
+      if (this.remain_price > 0){
+        return '确定支付'
+      } else {
+        return '确定购买'
+      }
     },
   }
 }
@@ -154,7 +161,7 @@ export default {
 <style lang="scss" scoped>
 
   .order-list{
-    margin-bottom: 20px;
+    margin-bottom: 30px;
   }
 
   .price-title{
@@ -163,6 +170,18 @@ export default {
 
   .price{
     color: red;
+  }
+
+  .order-number{
+    background-color: #eee;
+  }
+
+  .order-list /deep/ .vux-no-group-title{
+    margin-top: 0;
+  }
+
+  .total{
+    background-color: #f8f8f8;
   }
 
   /*底部============= start*/

@@ -49,7 +49,9 @@
 
     <div class="footer">
       <div class="sub01"><span class="span1">总价:</span><span>¥{{ order.price }}</span></div>
-      <div class="footerBut" @click="">去支付</div>
+      <div class="footerBut">
+        <router-link :to="{ path: '/payment/' + orderNumber }">去支付</router-link>
+      </div>
     </div>
 
   </div>

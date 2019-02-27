@@ -8,6 +8,8 @@ import axios from 'axios'
 import  { ToastPlugin, Actionsheet, Card, Flexbox, FlexboxItem, Group, Cell, CellBox,
   CellFormPreview, Swiper, Divider, Icon, XNumber, InlineXNumber, Radio } from 'vux'
 
+// import '../iconfont/iconfont.css'
+
 
 Vue.use(ToastPlugin)
 Vue.component('actionsheet', Actionsheet)

@@ -22,7 +22,7 @@
         <flexbox-item>
           <div class="footer-item">
             <router-link :to="{ path: '/mall/orders' }">
-              我的订单
+              商城订单
             </router-link>
           </div>
         </flexbox-item>

@@ -1,6 +1,6 @@
 <template>
   <div class="bookRoom paddingBottom62">
-    <Header center-mes="客房预订"></Header>
+    <Header center-mes="客房预订" :need-back="false"></Header>
     <!--弹出酒店详情 start-->
     <div class="popDialog" v-transfer-dom>
       <x-dialog v-model="showHideOnBlur" class="dialog-demo">
@@ -148,18 +148,22 @@
 
     <div class="footer">
       <a class="footerA br">
-        <span class="icon fangliangIcon"></span>
+        <i class="iconfont icon-hotel"></i>
         <p>房量</p>
         <span class="count">{{ counthotelnum }}</span>
       </a>
-      <a class="footerA br" :href="'tel:' + shop.phone">
-        <span class="icon phoneIcon"></span>
-        <p>电话</p>
-      </a>
-      <router-link class="footerA" :to="{ path: '/orders' }">
-        <span class="icon kefuIcon"></span>
-        <p>我的</p>
+      <router-link class="footerA br" :to="{ path: '/orders' }">
+        <i class="iconfont icon-dingdan"></i>
+        <p>订单</p>
       </router-link>
+      <router-link class="footerA" :to="{ path: '/mall' }">
+        <i class="iconfont icon-gouwu"></i>
+        <p>微商城</p>
+      </router-link>
+      <!--<a class="footerA" :href="'tel:' + shop.phone">-->
+        <!--<i class="iconfont icon-gouwu"></i>-->
+        <!--<p>电话</p>-->
+      <!--</a>-->
       <router-link class="footerBut" :to="{ path: pathurlparme }">立即预定</router-link>
     </div>
 
@@ -480,6 +484,9 @@ color:#484848;}
   position: absolute; top:-5px; right: 10px; min-width: 18px; height: 18px; line-height: 18px;
   text-align: center;}
 
+.footerA p{
+  margin-top: 8px;
+}
 
 
 @media screen and (max-width: 375px){

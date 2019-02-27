@@ -1,6 +1,6 @@
 <template>
   <div class="roomOrder paddingtop">
-    <son-header center-mes="我的订单"></son-header>
+    <son-header center-mes="我的酒店订单"></son-header>
 
     <tab v-model="tabIndex">
       <tab-item>全部订单</tab-item>
@@ -55,7 +55,7 @@ export default {
   },
   methods: {
     fetchList(){
-      this.$axios.get(`/api/customer/orders/`, {params: this.filters}).then(res => {
+      this.$axios.get(`/api/customer/orders/?category=room`, {params: this.filters}).then(res => {
         console.log(res.data)
         this.orders = res.data.results || res.data
       })
