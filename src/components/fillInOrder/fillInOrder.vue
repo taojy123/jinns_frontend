@@ -170,6 +170,7 @@ export default {
     }
   },
   mounted() {
+    document.title = '填写订单'
     this.checkIn = this.$route.query.checkIn || this.checkIn
     this.checkOut = this.$route.query.checkOut || this.checkOut
     const rooms = this.$route.query.rooms || ''

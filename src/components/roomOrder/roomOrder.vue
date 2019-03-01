@@ -35,7 +35,7 @@
         </flexbox>
       </div>
     </card>
-    <card>
+    <card class="person-info">
       <div slot="header" class="card-header">
         入住人信息
       </div>
@@ -74,6 +74,7 @@ export default {
     }
   },
   mounted() {
+    document.title = '酒店订单'
     this.$axios.get(`/api/customer/orders/${this.orderNumber}/`).then(res => {
       console.log(res.data)
       this.order = res.data
@@ -126,6 +127,10 @@ export default {
 
   .check-time {
     padding-bottom: 15px;
+  }
+
+  .person-info{
+    margin-bottom: 60px;
   }
 
 

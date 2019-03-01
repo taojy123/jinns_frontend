@@ -61,6 +61,7 @@ export default {
     }
   },
   mounted() {
+    document.title = '预订成功'
     this.$axios.get(`/api/customer/orders/${this.orderNumber}/`).then(res => {
       console.log(res.data)
       this.order = res.data

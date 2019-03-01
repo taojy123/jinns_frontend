@@ -39,6 +39,7 @@ export default {
     }
   },
   mounted() {
+    document.title = '商城商品'
     this.$axios.get(`/api/mall/products/${this.productId}/`).then(res => {
       console.log(res.data)
       this.product = res.data

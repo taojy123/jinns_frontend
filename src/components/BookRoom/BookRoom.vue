@@ -41,7 +41,7 @@
             </ul>
           </div>
         </div>
-        <a class="hmsBut">快速预定</a>
+        <!--<a class="hmsBut">快速预定</a>-->
       </x-dialog>
     </div>
     <!--弹出酒店详情 end-->
@@ -256,6 +256,7 @@ export default {
     }
   },
   mounted() {
+    document.title = '酒店预订'
     this.$login_by_openid('abcde12345')
     var that = this;
     that.swiperImgCont = imgList.length;

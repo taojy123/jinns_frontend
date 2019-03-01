@@ -50,6 +50,7 @@ export default {
     }
   },
   mounted() {
+    document.title = '商城订单'
     this.fetchList()
   },
   methods: {

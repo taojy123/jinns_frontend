@@ -49,11 +49,11 @@
       </cell-box>
     </group>
 
-    <group title="可选择优惠券" v-if="order.status == 'pending' && coupon_codes.length">
+    <group class="pay-group" title="可选择优惠券" v-if="order.status == 'pending' && coupon_codes.length">
       <radio :options="coupon_codes" :selected-label-style="{color: '#FF9900'}" v-model="coupon_code_id"></radio>
     </group>
 
-    <group title="可选择抵扣方式" v-if="order.status == 'pending' && channels.length">
+    <group class="pay-group" title="可选择抵扣方式" v-if="order.status == 'pending' && channels.length">
       <radio :options="channels" :selected-label-style="{color: '#FF9900'}" v-model="channel"></radio>
     </group>
 
@@ -169,7 +169,7 @@ export default {
     },
     pay_text(){
       if (this.remain_price > 0){
-        return '确定支付'
+        return '继续支付'
       } else {
         return '确定购买'
       }
@@ -204,6 +204,16 @@ export default {
   .total{
     background-color: #f8f8f8;
   }
+
+  .pay-group /deep/ .weui-check__label{
+    font-size: 15px;
+    color: gray;
+  }
+
+  .pay-group /deep/ .weui-cells__title{
+    color: #f4a52a;
+  }
+
 
   /*底部============= start*/
   .footer{ position: fixed; bottom: 0; left:0; right: 0; border-top: 1px solid #f0f0f0; height: 50px; background-color: #fff; z-index:999; padding-left: 10px;}

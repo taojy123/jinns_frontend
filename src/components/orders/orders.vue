@@ -51,6 +51,7 @@ export default {
     }
   },
   mounted() {
+    document.title = '酒店订单'
     this.fetchList()
   },
   methods: {
