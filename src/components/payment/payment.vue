@@ -57,6 +57,8 @@
       <radio :options="channels" :selected-label-style="{color: '#FF9900'}" v-model="channel"></radio>
     </group>
 
+    <div style="height: 100px"></div>
+
     <div class="footer" v-if="order.status == 'pending'">
       <div class="sub01"><span class="span1">还需支付:</span><span class="price">¥ {{ remain_price }}</span></div>
       <div class="footerBut" @click="pay">{{pay_text}}</div>

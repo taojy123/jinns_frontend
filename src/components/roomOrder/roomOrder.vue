@@ -130,7 +130,7 @@ export default {
   }
 
   .person-info{
-    margin-bottom: 60px;
+    margin-bottom: 100px;
   }
 
 
