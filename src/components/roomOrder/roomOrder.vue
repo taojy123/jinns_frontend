@@ -47,6 +47,8 @@
       </div>
     </card>
 
+    <div style="height: 100px"></div>
+
     <div class="footer">
       <div class="sub01"><span class="span1">总价:</span><span>¥{{ order.price }}</span></div>
       <div class="footerBut">
@@ -130,7 +132,7 @@ export default {
   }
 
   .person-info{
-    margin-bottom: 100px;
+    margin-bottom: 20px;
   }
 
 
