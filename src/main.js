@@ -35,7 +35,7 @@ Vue.component('radio', Radio)
 // ==================== axios config ===========================
 
 const $axios = axios.create({
-  baseURL: 'https://jinns.top',
+  baseURL: 'https://m.jinns.top',
   headers: {
     'Content-Type': 'application/json'
   }
